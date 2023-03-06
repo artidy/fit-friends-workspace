@@ -1,12 +1,11 @@
-import { TrainingGender } from './training-gender.enum';
-import { Duration } from './duration.enum';
+import { Duration, TrainingGender, TrainingLevel, TrainingType } from '@fit-friends/shared-types';
 
 export interface Training {
   id?: number;
   title: string;
   preview: string;
-  level: string;
-  type: string;
+  level: TrainingLevel;
+  type: TrainingType;
   duration: Duration;
   price: number;
   calories: number;

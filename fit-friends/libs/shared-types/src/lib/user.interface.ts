@@ -1,5 +1,4 @@
-import { UserGender } from './user-gender.enum';
-import { UserRole } from './user-role.enum';
+import { UserGender, UserRole, Location } from '@fit-friends/shared-types';
 
 export interface User {
   _id?: string;
@@ -9,6 +8,6 @@ export interface User {
   gender: UserGender;
   birthDate: Date;
   role: UserRole;
-  location: string;
+  location: Location;
   createdAt: Date;
 }
