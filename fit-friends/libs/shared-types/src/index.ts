@@ -16,3 +16,4 @@ export * from './lib/feature.interface';
 export * from './lib/comment.interface';
 export * from './lib/order.interface';
 export * from './lib/application.interface';
+export * from './lib/notification.interface';
