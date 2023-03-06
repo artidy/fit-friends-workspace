@@ -11,3 +11,8 @@ export interface User {
   location: Location;
   createdAt: Date;
 }
+
+export interface UserRequest {
+  email: string;
+  role: UserRole;
+}
