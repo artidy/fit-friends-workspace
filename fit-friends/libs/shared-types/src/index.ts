@@ -10,3 +10,4 @@ export * from './lib/training-level.interface';
 export * from './lib/training-type.interface';
 export * from './lib/gym.interface';
 export * from './lib/feature.interface';
+export * from './lib/comment.interface';
