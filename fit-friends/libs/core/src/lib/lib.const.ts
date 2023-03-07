@@ -25,6 +25,28 @@ enum Port {
   Max = 65535
 }
 
+enum TitleLength {
+  Min = 1,
+  Max = 15,
+}
+
+enum DescriptionLength {
+  Min = 1,
+  Max = 140,
+}
+
+enum PriceLength {
+  Min = 100,
+  Max = 5000,
+}
+
+enum DtoValidationMessage {
+  IncorrectLength = 'Некорректная длина текста',
+  ArrayIsNotContains = 'Недопустимое значение',
+  TooLowPrice = 'Цена должны быть выше',
+  TooHighPrice = 'Цена должны быть ниже',
+}
+
 const MONGO_CONFIG_TOKEN = 'mongodb';
 const DEFAULT_PORT = 3333;
 const DEFAULT_MONGO_PORT = '27017';
@@ -34,6 +56,10 @@ export {
   EnvValidationMessage,
   MongoOptionFields,
   Port,
+  TitleLength,
+  DtoValidationMessage,
+  DescriptionLength,
+  PriceLength,
   MONGO_CONFIG_TOKEN,
   DEFAULT_PORT,
   DEFAULT_MONGO_PORT,
