@@ -14,7 +14,7 @@ model Gym {
   id              Int @id @default(autoincrement())
   title           String
   location        String
-  isVerified      Boolean
+  isVerified      Boolean @default(false)
   parameters      Feature[]
   photos          Photo[]
   description     String

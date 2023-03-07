@@ -6,6 +6,7 @@ import { ENV_FILE_PATH } from './app.constant';
 import { httpConfig } from '../config/http.config';
 import { validateEnvironments } from './env.validation';
 import { PrismaModule } from './prisma/prisma.module';
+import { GymModule } from './gym/gym.module';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { PrismaModule } from './prisma/prisma.module';
       load: [httpConfig, authConfig],
       validate: validateEnvironments,
     }),
-    PrismaModule
+    PrismaModule,
+    GymModule
   ]
 })
 export class AppModule {}
