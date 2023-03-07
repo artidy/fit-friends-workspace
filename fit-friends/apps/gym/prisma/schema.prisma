@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Gym {
+  id              Int @id @default(autoincrement())
+  title           String
+  location        String
+  isVerified      Boolean
+  parameters      Feature[]
+  photos          Photo[]
+  description     String
+  price           Int
+  createdAt       DateTime @default(now())
+}
+
+model Feature {
+  id              Int @id @default(autoincrement())
+  title           String
+  gyms            Gym[]
+  createdAt       DateTime @default(now())
+}
+
+model Photo {
+  id              Int @id @default(autoincrement())
+  path            String
+  gymsId          Int
+  gym             Gym @relation(fields: [gymsId], references: [id])
+  createdAt       DateTime @default(now())
+}
+
+model Training {
+  id              Int @id @default(autoincrement())
+  title           String
+  preview         String
+  level           String
+  type            String
+  duration        String
+  price           Int
+  calories        Int
+  description     String
+  gender          String
+  video           String
+  coachId         String
+  isSpecial       Boolean
+  createdAt       DateTime @default(now())
+  comments        Comment[]
+}
+
+model Comment {
+  id              Int @id @default(autoincrement())
+  authorId        String
+  trainingId      Int
+  training        Training @relation(fields: [trainingId], references: [id])
+  rating          Int
+  text            String
+  createdAt       DateTime @default(now())
+}
+
+model Order {
+  id              Int @id @default(autoincrement())
+  type            String
+  gymId           Int?
+  gym             Gym @relation(fields: [gymsId], references: [id])
+  trainingId      Int
+  training        Training @relation(fields: [trainingId], references: [id])
+  price           Int
+  count           Int
+  sum             Int
+  paymentType     String
+  createdAt       DateTime @default(now())
+}
+
+model Application {
+  id              Int @id @default(autoincrement())
+  authorId        String
+  userId          String
+  status          String
+  createdAt       DateTime @default(now())
+  createdAt       DateTime @default(now())
+}

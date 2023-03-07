@@ -1,6 +1,6 @@
-export interface Feature {
+export interface Photo {
   id?: number;
-  title: string;
+  path: string;
   gymId: number;
   createdAt: Date;
 }
