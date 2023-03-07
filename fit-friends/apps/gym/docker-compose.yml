@@ -1,0 +1,36 @@
+version: "3.5"
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: fit_friends_gym_postgres
+    env_file:
+      - ../../environments/.gym.env
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    networks:
+      - postgres
+
+  pgadmin:
+    container_name: fit_friends_gym_pgadmin
+    image: dpage/pgadmin4
+    env_file:
+      - ../../environments/.gym.env
+    volumes:
+      - ./db:/var/lib/pgadmin
+    ports:
+      - "8082:80"
+    restart: unless-stopped
+    networks:
+      - postgres
+
+networks:
+  postgres:
+    driver: bridge

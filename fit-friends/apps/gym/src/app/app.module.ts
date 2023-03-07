@@ -1,11 +1,20 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { authConfig } from '@fit-friends/core';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ENV_FILE_PATH } from './app.constant';
+import { httpConfig } from '../config/http.config';
+import { validateEnvironments } from './env.validation';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({
+      cache: true,
+      isGlobal: true,
+      envFilePath: ENV_FILE_PATH,
+      load: [httpConfig, authConfig],
+      validate: validateEnvironments,
+    }),
+  ]
 })
 export class AppModule {}
