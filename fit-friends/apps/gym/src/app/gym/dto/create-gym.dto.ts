@@ -54,10 +54,10 @@ export class CreateGymDto {
     example: PriceLength.Max
   })
   @Min(PriceLength.Min, {
-    message: DtoValidationMessage.TooLowPrice
+    message: DtoValidationMessage.TooLowNumber
   })
   @Max(PriceLength.Max, {
-    message: DtoValidationMessage.TooHighPrice
+    message: DtoValidationMessage.TooHighNumber
   })
   price: number;
 }

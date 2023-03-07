@@ -14,4 +14,5 @@ export interface Training {
   video: string;
   coachId: string;
   isSpecial: boolean;
+  createdAt: Date;
 }

@@ -13,6 +13,7 @@ export interface User {
 }
 
 export interface UserRequest {
+  id: string;
   email: string;
   role: UserRole;
 }

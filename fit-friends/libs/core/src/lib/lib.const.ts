@@ -31,7 +31,7 @@ enum TitleLength {
 }
 
 enum DescriptionLength {
-  Min = 1,
+  Min = 10,
   Max = 140,
 }
 
@@ -40,11 +40,18 @@ enum PriceLength {
   Max = 5000,
 }
 
+enum CaloriesLength {
+  Min = 1000,
+  Max = 5000,
+}
+
 enum DtoValidationMessage {
   IncorrectLength = 'Некорректная длина текста',
   ArrayIsNotContains = 'Недопустимое значение',
-  TooLowPrice = 'Цена должны быть выше',
-  TooHighPrice = 'Цена должны быть ниже',
+  TooLowNumber = 'Значение должно быть больше',
+  TooHighNumber = 'Значение должно быть меньше',
+  IsNotInteger = 'Значение должно быть целым числом',
+  IsEmpty = 'Поле должно быть заполнено',
 }
 
 const MONGO_CONFIG_TOKEN = 'mongodb';
@@ -60,6 +67,7 @@ export {
   DtoValidationMessage,
   DescriptionLength,
   PriceLength,
+  CaloriesLength,
   MONGO_CONFIG_TOKEN,
   DEFAULT_PORT,
   DEFAULT_MONGO_PORT,

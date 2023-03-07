@@ -7,6 +7,7 @@ import { httpConfig } from '../config/http.config';
 import { validateEnvironments } from './env.validation';
 import { PrismaModule } from './prisma/prisma.module';
 import { GymModule } from './gym/gym.module';
+import { TrainingModule } from './training/training.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { GymModule } from './gym/gym.module';
       validate: validateEnvironments,
     }),
     PrismaModule,
-    GymModule
+    GymModule,
+    TrainingModule
   ]
 })
 export class AppModule {}
