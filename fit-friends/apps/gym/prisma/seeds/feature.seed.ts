@@ -1,8 +1,12 @@
 import { PrismaClient } from '@prisma/client';
 
-import { FEATURES } from '../../../../libs/shared-types/src';
-
 const FINISHED_MESSAGE = 'База была заполнена';
+const FEATURES = [
+  'бассейн',
+  'бесплатная парковка',
+  'детская комната',
+  'массаж',
+]
 
 const prisma = new PrismaClient();
 
