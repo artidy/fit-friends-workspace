@@ -5,6 +5,7 @@ import { authConfig } from '@fit-friends/core';
 import { ENV_FILE_PATH } from './app.constant';
 import { httpConfig } from '../config/http.config';
 import { validateEnvironments } from './env.validation';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { validateEnvironments } from './env.validation';
       load: [httpConfig, authConfig],
       validate: validateEnvironments,
     }),
+    PrismaModule
   ]
 })
 export class AppModule {}
