@@ -1,0 +1,26 @@
+version: '3.5'
+services:
+  mongodb:
+    image: mongo:5.0.14
+    restart: always
+    container_name: fit_friends_users_mongodb
+    env_file:
+      - ../../environments/.users.env
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./db:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017 --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mongodb-express:
+    image: mongo-express:1.0.0-alpha.4
+    restart: always
+    container_name: fit_friends_users_mongo-express
+    env_file:
+      - ../../environments/.users.env
+    ports:
+      - '1085:8081'
