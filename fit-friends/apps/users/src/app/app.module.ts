@@ -8,6 +8,7 @@ import { jwtConfig } from '../config/jwt.config';
 import { validateEnvironments } from './env.validation';
 import { RefreshTokenModule } from './refresh-token/refresh-token.module';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { UserModule } from './user/user.module';
       getMongoDbOptions()
     ),
     RefreshTokenModule,
-    UserModule
+    UserModule,
+    AuthModule,
   ]
 })
 export class AppModule {}
