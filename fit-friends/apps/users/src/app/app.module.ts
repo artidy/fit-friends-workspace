@@ -6,6 +6,7 @@ import { getMongoDbOptions, mongodbConfig } from '@fit-friends/core';
 import { ENV_FILE_PATH } from './app.constant';
 import { jwtConfig } from '../config/jwt.config';
 import { validateEnvironments } from './env.validation';
+import { RefreshTokenModule } from './refresh-token/refresh-token.module';
 import { UserModule } from './user/user.module';
 
 @Module({
@@ -20,6 +21,7 @@ import { UserModule } from './user/user.module';
     MongooseModule.forRootAsync(
       getMongoDbOptions()
     ),
+    RefreshTokenModule,
     UserModule
   ]
 })
