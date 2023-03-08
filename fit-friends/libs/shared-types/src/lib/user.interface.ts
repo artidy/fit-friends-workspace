@@ -6,7 +6,7 @@ export interface User {
   email: string;
   avatar: string;
   gender: UserGender;
-  birthDate: Date;
+  birthDate?: Date;
   role: UserRole;
   location: Location;
   createdAt: Date;

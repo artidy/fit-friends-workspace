@@ -48,6 +48,11 @@ enum CaloriesLength {
   Max = 5000,
 }
 
+enum PasswordLength {
+  Min = 6,
+  Max = 12,
+}
+
 enum DtoValidationMessage {
   IncorrectLength = 'Некорректная длина текста',
   ArrayIsNotContains = 'Недопустимое значение',
@@ -55,6 +60,8 @@ enum DtoValidationMessage {
   TooHighNumber = 'Значение должно быть меньше',
   IsNotInteger = 'Значение должно быть целым числом',
   IsEmpty = 'Поле должно быть заполнено',
+  IncorrectEmail = 'Неверный формат электронной почты',
+  IsNotDate = 'Неверный формат даты',
 }
 
 const MONGO_CONFIG_TOKEN = 'mongodb';
@@ -71,6 +78,7 @@ export {
   DescriptionLength,
   PriceLength,
   CaloriesLength,
+  PasswordLength,
   MONGO_CONFIG_TOKEN,
   DEFAULT_PORT,
   DEFAULT_MONGO_PORT,
