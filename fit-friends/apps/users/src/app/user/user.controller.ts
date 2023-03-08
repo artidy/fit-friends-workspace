@@ -1,0 +1,66 @@
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { fillObject, MongoidValidationPipe } from '@fit-friends/core';
+
+import { UserService } from './user.service';
+import { UserRdo } from './rdo/user.rdo';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+
+@ApiTags('users')
+@Controller('users')
+export class UserController {
+  constructor(private readonly userService: UserService) {}
+
+  @ApiResponse({
+    status: HttpStatus.OK, description: 'Вы успешно получили данные'
+  })
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  public async index() {
+    const users = await this.userService.getAll();
+
+    return fillObject(UserRdo, users);
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK, description: 'Вы успешно получили данные'
+  })
+  @Get(':id')
+  @HttpCode(HttpStatus.OK)
+  public async getById(@Param('id', MongoidValidationPipe) id: string) {
+    const user = await this.userService.getUserById(id);
+
+    return fillObject(UserRdo, user);
+  }
+
+  @ApiResponse({
+    status: HttpStatus.CREATED, description: 'Новый пользователь создан'
+  })
+  @Post()
+  @HttpCode(HttpStatus.CREATED)
+  public async create(@Body() dto: CreateUserDto) {
+    const user = await this.userService.create(dto);
+
+    return fillObject(UserRdo, user);
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK, description: 'Данные пользователя успешно обновлены'
+  })
+  @Patch(':id')
+  public async patch(@Param('id', MongoidValidationPipe) id: string, @Body() dto: UpdateUserDto) {
+    const user = await this.userService.update(id, dto);
+
+    return fillObject(UserRdo, user);
+  }
+
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT, description: 'Пользователь успешно удален'
+  })
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  public async delete(@Param('id', MongoidValidationPipe) id: string) {
+    await this.userService.delete(id);
+  }
+}

@@ -6,6 +6,7 @@ import { getMongoDbOptions, mongodbConfig } from '@fit-friends/core';
 import { ENV_FILE_PATH } from './app.constant';
 import { jwtConfig } from '../config/jwt.config';
 import { validateEnvironments } from './env.validation';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { validateEnvironments } from './env.validation';
     MongooseModule.forRootAsync(
       getMongoDbOptions()
     ),
+    UserModule
   ]
 })
 export class AppModule {}
