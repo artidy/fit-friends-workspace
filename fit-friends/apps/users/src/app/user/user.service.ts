@@ -30,7 +30,7 @@ export class UserService {
 
     const userEntity = new UserEntity({
       ...dto,
-      avatar: '',
+      avatar: 'image',
       createdAt: null,
     });
     await userEntity.setPassword(dto.password);

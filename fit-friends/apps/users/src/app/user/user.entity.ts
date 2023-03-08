@@ -4,6 +4,7 @@ import { Location, User, UserGender, UserRole } from '@fit-friends/shared-types'
 import { SALT_ROUNDS } from '../app.constant';
 
 export class UserEntity implements User {
+  public _id: string;
   public name: string;
   public email: string;
   public avatar: string;
@@ -35,6 +36,7 @@ export class UserEntity implements User {
   }
 
   public fillEntity(entity: User): void {
+    this._id = entity._id;
     this.name = entity.name;
     this.email = entity.email;
     this.avatar = entity.avatar;
@@ -42,5 +44,6 @@ export class UserEntity implements User {
     this.birthDate = entity.birthDate;
     this.location = entity.location;
     this.role = entity.role;
+    this.passwordHash = entity.passwordHash;
   }
 }

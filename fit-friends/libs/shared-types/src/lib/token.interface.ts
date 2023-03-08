@@ -1,5 +1,5 @@
 export interface Token {
-  id?: string;
+  _id?: string;
   tokenId: string;
   createdAt: Date;
   userId: string;

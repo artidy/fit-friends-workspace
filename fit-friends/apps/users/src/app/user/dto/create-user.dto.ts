@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, IsEmail, IsEnum, IsIn, IsOptional, Length } from 'class-validator';
+import { IsDateString, IsEmail, IsEnum, IsIn, IsOptional, Length } from 'class-validator';
 import { DtoValidationMessage, PasswordLength, TitleLength } from '@fit-friends/core';
 import { Location, LOCATIONS, UserGender, UserRole } from '@fit-friends/shared-types';
 
@@ -56,10 +56,10 @@ export class CreateUserDto {
   @ApiProperty({
     description: 'Дата рождения.',
     required: true,
-    example: '23.03.1985'
+    example: '1985-03-23'
   })
   @IsOptional()
-  @IsDate({
+  @IsDateString({ strict: true }, {
     message: DtoValidationMessage.IsNotDate
   })
   birthDate?: Date;

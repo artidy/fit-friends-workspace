@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 import { User, UserGender, UserRole } from '@fit-friends/shared-types';
 
 @Schema({
@@ -22,7 +23,8 @@ class UserModel extends Document implements User {
   public avatar: string;
 
   @Prop({
-    required: true
+    required: true,
+    type: String
   })
   public gender: UserGender;
 
@@ -49,9 +51,7 @@ class UserModel extends Document implements User {
   })
   public location: any;
 
-  @Prop({
-    required: true
-  })
+  @Prop()
   public createdAt: Date;
 }
 

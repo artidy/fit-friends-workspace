@@ -7,9 +7,9 @@ import { getJwtOptions } from '../../config/jwt.config';
 import { RefreshTokenModule } from '../refresh-token/refresh-token.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
+import { UserModule } from '../user/user.module';
 
 @Module({
   imports: [
@@ -20,11 +20,11 @@ import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
     }),
     PassportModule,
     RefreshTokenModule,
+    UserModule,
   ],
   controllers: [AuthController],
   providers: [
     AuthService,
-    JwtStrategy,
     LocalStrategy,
     JwtRefreshStrategy,
   ],

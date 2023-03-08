@@ -5,6 +5,7 @@ import { UserModel, UserSchema } from './user.model';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { UserRepository } from './user.repository';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { UserRepository } from './user.repository';
     ]),
   ],
   controllers: [UserController],
-  providers: [UserService, UserRepository]
+  providers: [UserService, UserRepository, JwtStrategy],
+  exports: [UserRepository]
 })
 export class UserModule {}

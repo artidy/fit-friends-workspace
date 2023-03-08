@@ -2,13 +2,14 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { randomUUID } from 'crypto';
-import { RefreshTokenPayload, TokenPayload, UserRequest } from '@fit-friends/shared-types';
+import { RefreshTokenPayload, TokenPayload, User, UserRequest } from '@fit-friends/shared-types';
 
 import { jwtConfig } from '../../config/jwt.config';
 import { RefreshTokenService } from '../refresh-token/refresh-token.service';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UserRepository } from '../user/user.repository';
 import { UserEntity } from '../user/user.entity';
+import { LoggedUserRdo } from './rdo/logged-user.rdo';
 
 @Injectable()
 export class AuthService {
@@ -35,27 +36,25 @@ export class AuthService {
     return userEntity.toObject();
   }
 
-  public async loginUser(user: Pick<UserRequest, 'id' | 'email' | 'role' | 'name'>, refreshTokenId?: string) {
+  public async loginUser(user: Pick<User, '_id' | 'email' | 'role' | 'name'>, refreshTokenId?: string): Promise<LoggedUserRdo> {
     const payload: TokenPayload = {
-      id: user.id,
+      id: user._id,
       email: user.email,
       role: user.role,
       name: user.name
     };
 
-    await this.refreshTokenService
-      .deleteRefreshSession(refreshTokenId);
+    await this.refreshTokenService.deleteRefreshSession(refreshTokenId);
 
     const refreshTokenPayload: RefreshTokenPayload = {
       ...payload, refreshTokenId: randomUUID()
     }
 
-    await this.refreshTokenService
-      .createRefreshSession(refreshTokenPayload);
+    await this.refreshTokenService.createRefreshSession(refreshTokenPayload);
 
     return {
-      access_token: await this.jwtService.signAsync(payload),
-      refresh_token: await this.jwtService.signAsync(refreshTokenPayload, {
+      accessToken: await this.jwtService.signAsync(payload),
+      refreshToken: await this.jwtService.signAsync(refreshTokenPayload, {
         secret: this.config.refreshSecret,
         expiresIn: this.config.refreshExpiresIn,
       })

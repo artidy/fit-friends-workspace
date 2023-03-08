@@ -2,7 +2,7 @@ import { Entity } from '@fit-friends/core';
 import { Token } from '@fit-friends/shared-types';
 
 export class RefreshTokenEntity implements Entity<RefreshTokenEntity>, Token {
-  public id: string;
+  public _id: string;
   public tokenId: string;
   public userId: string;
   public createdAt: Date;
@@ -14,8 +14,8 @@ export class RefreshTokenEntity implements Entity<RefreshTokenEntity>, Token {
   }
 
   public fillEntity(entity: Token): void {
+    this._id = entity._id;
     this.userId = entity.userId;
-    this.id = entity.id;
     this.tokenId = entity.tokenId;
     this.expiresIn = entity.expiresIn;
   }

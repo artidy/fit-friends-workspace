@@ -41,7 +41,7 @@ export class AuthController {
       name: user.name,
       role: user.role,
       email: user.email,
-      id: user.id
+      _id: user.id
     }, user.refreshTokenId);
 
     return fillObject(LoggedUserRdo, tokenData);

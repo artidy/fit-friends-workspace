@@ -19,7 +19,7 @@ export class RefreshTokenService {
     const unit  =  this.config.refreshExpiresIn.at(-1);
     const refreshToken = new RefreshTokenEntity({
       tokenId: payload.refreshTokenId,
-      createdAt: new Date(),
+      createdAt: null,
       userId: payload.id,
       expiresIn: dayjs().add(count, unit as ManipulateType).toDate()
     });

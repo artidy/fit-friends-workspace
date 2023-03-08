@@ -1,6 +1,7 @@
 import { UserGender, UserRole, Location } from '@fit-friends/shared-types';
 
 export interface User {
+  _id?: string;
   name: string;
   email: string;
   avatar: string;
@@ -8,6 +9,7 @@ export interface User {
   birthDate?: Date;
   role: UserRole;
   location: Location;
+  passwordHash?: string;
   createdAt: Date;
 }
 

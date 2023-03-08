@@ -1,0 +1,32 @@
+### Регистрация нового пользователя
+POST http://localhost:3333/api/users
+Content-Type: application/json
+
+{
+  "name": "Andrey",
+  "email": "admin@mail.ru",
+  "password": "123456789",
+  "gender": "мужской",
+  "birthDate": "1985-03-23",
+  "role": "пользователь",
+  "location": "Удельная"
+}
+
+### Получение списка всех пользователей
+GET http://localhost:3333/api/users
+
+### Получение информации о пользователе по идентификатору
+GET http://localhost:3333/api/users/6408e81749bcefc98600c025
+
+### Обновление информации пользователя
+PATCH http://localhost:3333/api/users/6408e81749bcefc98600c025
+Content-Type: application/json
+Authorization: Bearer
+
+{
+  "location": "Звёздная"
+}
+
+### Удаление пользователя
+DELETE http://localhost:3333/api/users/6408e81749bcefc98600c025
+Authorization: Bearer
