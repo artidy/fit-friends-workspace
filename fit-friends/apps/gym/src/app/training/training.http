@@ -1,0 +1,36 @@
+### Создание тренировки
+POST http://localhost:4444/api/trainings
+Content-Type: application/json
+Authorization: Bearer
+
+{
+  "title": "Йога перед сном",
+  "level": "новичок",
+  "type": "йога",
+  "duration": "10-30 мин",
+  "price": 1000,
+  "calories": 2000,
+  "description": "Подойдет для любого уровня подготовки, даже если её вообще нет.",
+  "gender": "для женщин",
+  "video": "video",
+  "isSpecial": false
+}
+
+### Получение списка тренировок
+GET http://localhost:4444/api/trainings/
+
+### Получение тренировки по идентификатору
+GET http://localhost:4444/api/trainings/1
+
+### Обновление тренировки
+PATCH http://localhost:4444/api/trainings/1
+Content-Type: application/json
+Authorization: Bearer
+
+{
+  "title": "Утренняя йога"
+}
+
+### Удаление тренировки
+DELETE http://localhost:4444/api/trainings/2
+Authorization: Bearer

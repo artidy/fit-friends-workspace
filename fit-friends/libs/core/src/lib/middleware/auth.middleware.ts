@@ -36,7 +36,10 @@ export function auth (httpService: HttpService, configService: ConfigService) {
       )
 
       req.user = user;
-    } catch {}
+    } catch(e) {
+      console.log(e);
+      throw new HttpException(e.response.data, e.response.status);
+    }
 
     next();
   }

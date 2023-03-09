@@ -49,6 +49,17 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @ApiResponse({
+    status: HttpStatus.OK, description: 'Проверка пользователя прошла успешно'
+  })
+  @Get('jwt/verify')
+  public async verify(@User() userRequest: UserRequest) {
+    const user = await this.userService.getUserById(userRequest.id);
+
+    return fillObject(UserRdo, user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({
     status: HttpStatus.OK, description: 'Данные пользователя успешно обновлены'
   })
   @Patch(':id')

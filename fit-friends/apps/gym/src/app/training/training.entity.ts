@@ -11,13 +11,13 @@ export class TrainingEntity implements Entity<Training>, Training {
   id: number;
   title: string;
   preview: string;
-  level: TrainingLevel;
-  type: TrainingType;
-  duration: Duration;
+  level: string;
+  type: string;
+  duration: string;
   price: number;
   calories: number;
   description: string;
-  gender: TrainingGender;
+  gender: string;
   video: string;
   coachId: string;
   isSpecial: boolean;

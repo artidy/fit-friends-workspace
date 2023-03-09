@@ -22,7 +22,7 @@ export class GymRepository implements CRUDRepository<GymEntity, number, Gym> {
 
     return this.prisma.gym.create({
       data: { ...gym },
-      include: { futures: true, photos: true }
+      include: { parameters: true, photos: true }
     });
   }
 
@@ -30,11 +30,9 @@ export class GymRepository implements CRUDRepository<GymEntity, number, Gym> {
     const gym = gymEntity.toObject();
 
     return this.prisma.gym.update({
-      where: {
-        id
-      },
+      where: {id},
       data: { ...gym },
-      include: { futures: true, photos: true }
+      include: { parameters: true, photos: true }
     });
   }
 
