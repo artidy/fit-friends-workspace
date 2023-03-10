@@ -9,6 +9,7 @@ import { validateEnvironments } from './env.validation';
 import { PrismaModule } from './prisma/prisma.module';
 import { GymModule } from './gym/gym.module';
 import { TrainingModule } from './training/training.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { TrainingModule } from './training/training.module';
     HttpModule.registerAsync(getHttpOptions()),
     PrismaModule,
     GymModule,
-    TrainingModule
+    TrainingModule,
+    OrderModule,
   ]
 })
 export class AppModule {}

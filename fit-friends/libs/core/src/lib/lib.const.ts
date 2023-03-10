@@ -53,6 +53,11 @@ enum PasswordLength {
   Max = 12,
 }
 
+enum CountLength {
+  Min = 1,
+  Max = 50,
+}
+
 enum DtoValidationMessage {
   IncorrectLength = 'Некорректная длина текста',
   ArrayIsNotContains = 'Недопустимое значение',
@@ -80,6 +85,7 @@ export {
   PriceLength,
   CaloriesLength,
   PasswordLength,
+  CountLength,
   MONGO_CONFIG_TOKEN,
   DEFAULT_PORT,
   DEFAULT_MONGO_PORT,
