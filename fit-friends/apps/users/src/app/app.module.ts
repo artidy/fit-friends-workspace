@@ -9,6 +9,8 @@ import { validateEnvironments } from './env.validation';
 import { RefreshTokenModule } from './refresh-token/refresh-token.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { UserProfileModule } from './user-profile/user-profile.module';
+import { CoachProfileModule } from './user-coach/coach-profile.module';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { AuthModule } from './auth/auth.module';
     RefreshTokenModule,
     UserModule,
     AuthModule,
+    UserProfileModule,
+    CoachProfileModule
   ]
 })
 export class AppModule {}

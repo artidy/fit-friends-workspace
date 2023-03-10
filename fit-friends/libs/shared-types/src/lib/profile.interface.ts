@@ -17,5 +17,5 @@ export interface UserProfile extends Profile {
 export interface CoachProfile extends Profile {
   certificate: string;
   merits: string;
-  personalTraining: boolean;
+  isPersonalTraining: boolean;
 }
