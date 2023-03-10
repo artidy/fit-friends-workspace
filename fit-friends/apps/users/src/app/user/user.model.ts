@@ -3,7 +3,8 @@ import { Document } from 'mongoose';
 import { User, UserGender, UserRole } from '@fit-friends/shared-types';
 
 @Schema({
-  collection: 'users'
+  collection: 'users',
+  timestamps: true
 })
 class UserModel extends Document implements User {
   @Prop({

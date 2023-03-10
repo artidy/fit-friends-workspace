@@ -62,6 +62,7 @@ enum DtoValidationMessage {
   IsEmpty = 'Поле должно быть заполнено',
   IncorrectEmail = 'Неверный формат электронной почты',
   IsNotDate = 'Неверный формат даты',
+  IsNotMongoId = 'Неверный формат идентификатора'
 }
 
 const MONGO_CONFIG_TOKEN = 'mongodb';
