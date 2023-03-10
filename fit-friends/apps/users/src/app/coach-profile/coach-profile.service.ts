@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { ProfileExistsException, ProfileNotFoundException } from '@fit-friends/core';
 
 import { CoachProfileRepository } from './coach-profile.repository';
 import { CreateCoachProfileDto } from './dto/create-coach-profile.dto';
@@ -21,7 +22,7 @@ export class CoachProfileService {
     const existProfileCoach = await this.coachProfileRepository.findById(userId);
 
     if (existProfileCoach) {
-      throw new Error('Профиль тренера уже существует.');
+      throw new ProfileExistsException();
     }
 
     const coachProfileEntity = new CoachProfileEntity({
@@ -36,7 +37,7 @@ export class CoachProfileService {
     const existProfileCoach = await this.coachProfileRepository.findById(userId);
 
     if (!existProfileCoach) {
-      throw new Error('Нет профиля тренера.');
+      throw new ProfileNotFoundException(userId);
     }
 
     const coachProfileEntity = new CoachProfileEntity({

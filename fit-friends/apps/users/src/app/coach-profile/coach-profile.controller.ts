@@ -1,6 +1,25 @@
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, UseGuards } from '@nestjs/common';
-import { Auth, fillObject, MongoidValidationPipe, User } from '@fit-friends/core';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+  UseFilters,
+  UseGuards
+} from '@nestjs/common';
+import {
+  Auth,
+  EditDataForbiddenException,
+  fillObject,
+  HttpExceptionFilter,
+  MongoidValidationPipe,
+  User
+} from '@fit-friends/core';
 import { UserRequest, UserRole } from '@fit-friends/shared-types';
 
 import { JwtAuthGuard } from '../user/guards/jwt-auth.guard';
@@ -9,6 +28,7 @@ import { CoachProfileRdo } from './rdo/coach-profile.rdo';
 import { CreateCoachProfileDto } from './dto/create-coach-profile.dto';
 import { UpdateCoachProfileDto } from './dto/update-coach-profile.dto';
 
+@UseFilters(HttpExceptionFilter)
 @ApiTags('coach-profile')
 @Controller('coach-profile')
 export class CoachProfileController {
@@ -58,7 +78,7 @@ export class CoachProfileController {
   public async patch(@Param('userId', MongoidValidationPipe) userId: string,
                      @Body() dto: UpdateCoachProfileDto, @User() userRequest: UserRequest) {
     if (userRequest.id !== userId) {
-      throw new Error('Редактировать данные другого тренера недопускается.');
+      throw new EditDataForbiddenException();
     }
 
     const coachProfile = await this.coachProfileService.update(userId, dto);
@@ -75,7 +95,7 @@ export class CoachProfileController {
   @HttpCode(HttpStatus.NO_CONTENT)
   public async delete(@Param('userId', MongoidValidationPipe) userId: string, @User() userRequest: UserRequest) {
     if (userRequest.id !== userId) {
-      throw new Error('Нельзя удалить профиль другого тренера.');
+      throw new EditDataForbiddenException();
     }
 
     await this.coachProfileService.delete(userId);

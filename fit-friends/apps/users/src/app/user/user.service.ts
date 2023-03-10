@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { UserExistsException, UserNotFoundException } from '@fit-friends/core';
 
 import { UserRepository } from './user.repository';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -25,7 +26,7 @@ export class UserService {
     const existUser = await this.userRepository.findByEmail(dto.email);
 
     if (existUser) {
-      throw new Error('Пользователь уже существует');
+      throw new UserExistsException(existUser.email);
     }
 
     const userEntity = new UserEntity({
@@ -42,7 +43,7 @@ export class UserService {
     const existUser = await this.userRepository.findById(id);
 
     if (!existUser) {
-      throw new Error('Пользователя не существует');
+      throw new UserNotFoundException(id);
     }
 
     const userEntity = new UserEntity({

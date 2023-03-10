@@ -1,6 +1,25 @@
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, UseGuards } from '@nestjs/common';
-import { Auth, fillObject, MongoidValidationPipe, User } from '@fit-friends/core';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+  UseFilters,
+  UseGuards
+} from '@nestjs/common';
+import {
+  Auth,
+  EditDataForbiddenException,
+  fillObject,
+  HttpExceptionFilter,
+  MongoidValidationPipe,
+  User
+} from '@fit-friends/core';
 import { UserRequest, UserRole } from '@fit-friends/shared-types';
 
 import { JwtAuthGuard } from '../user/guards/jwt-auth.guard';
@@ -9,6 +28,7 @@ import { UserProfileRdo } from './rdo/user-profile.rdo';
 import { CreateUserProfileDto } from './dto/create-user-profile.dto';
 import { UpdateUserProfileDto } from './dto/update-user-profile.dto';
 
+@UseFilters(HttpExceptionFilter)
 @ApiTags('user-profile')
 @Controller('user-profile')
 export class UserProfileController {
@@ -58,7 +78,7 @@ export class UserProfileController {
   public async patch(@Param('userId', MongoidValidationPipe) userId: string,
                      @Body() dto: UpdateUserProfileDto, @User() userRequest: UserRequest) {
     if (userRequest.id !== userId) {
-      throw new Error('Редактировать данные другого пользователя недопускается.');
+      throw new EditDataForbiddenException();
     }
 
     const userProfile = await this.userProfileService.update(userId, dto);
@@ -75,7 +95,7 @@ export class UserProfileController {
   @HttpCode(HttpStatus.NO_CONTENT)
   public async delete(@Param('userId', MongoidValidationPipe) userId: string, @User() userRequest: UserRequest) {
     if (userRequest.id !== userId) {
-      throw new Error('Нельзя удалить профиль другого пользователя.');
+      throw new EditDataForbiddenException();
     }
 
     await this.userProfileService.delete(userId);

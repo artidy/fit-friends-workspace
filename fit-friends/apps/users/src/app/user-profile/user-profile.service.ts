@@ -4,6 +4,7 @@ import { UserProfileRepository } from './user-profile.repository';
 import { UserProfileEntity } from './user-profile.entity';
 import { CreateUserProfileDto } from './dto/create-user-profile.dto';
 import { UpdateUserProfileDto } from './dto/update-user-profile.dto';
+import { ProfileExistsException, ProfileNotFoundException } from '@fit-friends/core';
 
 @Injectable()
 export class UserProfileService {
@@ -21,7 +22,7 @@ export class UserProfileService {
     const existProfileUser = await this.userProfileRepository.findById(userId);
 
     if (existProfileUser) {
-      throw new Error('Профиль пользователя уже существует.');
+      throw new ProfileExistsException();
     }
 
     const userProfileEntity = new UserProfileEntity({
@@ -35,7 +36,7 @@ export class UserProfileService {
     const existProfileUser = await this.userProfileRepository.findById(userId);
 
     if (!existProfileUser) {
-      throw new Error('Нет профиля пользователя.');
+      throw new ProfileNotFoundException(userId);
     }
 
     const userProfileEntity = new UserProfileEntity({

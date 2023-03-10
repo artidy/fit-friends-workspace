@@ -72,8 +72,8 @@ model Order {
   type            String
   gymId           Int?
   gym             Gym? @relation(fields: [gymId], references: [id])
-  trainingId      Int
-  training        Training @relation(fields: [trainingId], references: [id])
+  trainingId      Int?
+  training        Training? @relation(fields: [trainingId], references: [id])
   price           Int
   count           Int
   sum             Int

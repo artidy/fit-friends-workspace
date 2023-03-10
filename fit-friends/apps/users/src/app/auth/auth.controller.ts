@@ -1,6 +1,6 @@
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Controller, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
-import { fillObject, User } from '@fit-friends/core';
+import { Controller, HttpCode, HttpStatus, Post, UseFilters, UseGuards } from '@nestjs/common';
+import { fillObject, HttpExceptionFilter, User } from '@fit-friends/core';
 import { UserRequest } from '@fit-friends/shared-types';
 
 import { AuthService } from './auth.service';
@@ -8,6 +8,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { LoggedUserRdo } from './rdo/logged-user.rdo';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 
+@UseFilters(HttpExceptionFilter)
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {

@@ -1,6 +1,18 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+  UseFilters,
+  UseGuards
+} from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { fillObject, MongoidValidationPipe, User } from '@fit-friends/core';
+import { fillObject, HttpExceptionFilter, MongoidValidationPipe, User, EditDataForbiddenException } from '@fit-friends/core';
 import { UserRequest } from '@fit-friends/shared-types';
 
 import { UserService } from './user.service';
@@ -9,6 +21,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
+@UseFilters(HttpExceptionFilter)
 @ApiTags('users')
 @Controller('users')
 export class UserController {
@@ -66,7 +79,7 @@ export class UserController {
   public async patch(@Param('id', MongoidValidationPipe) id: string,
                      @Body() dto: UpdateUserDto, @User() userRequest: UserRequest) {
     if (userRequest.id !== id) {
-      throw new Error('Редактировать данные чужого пользователя недопускается.');
+      throw new EditDataForbiddenException();
     }
 
     const user = await this.userService.update(id, dto);
@@ -82,7 +95,7 @@ export class UserController {
   @HttpCode(HttpStatus.NO_CONTENT)
   public async delete(@Param('id', MongoidValidationPipe) id: string, @User() userRequest: UserRequest) {
     if (userRequest.id !== id) {
-      throw new Error('Нельзя удалить другого пользователя.');
+      throw new EditDataForbiddenException();
     }
 
     await this.userService.delete(id);

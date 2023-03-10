@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { randomUUID } from 'crypto';
-import { RefreshTokenPayload, TokenPayload, User, UserRequest } from '@fit-friends/shared-types';
+import { RefreshTokenPayload, TokenPayload, User } from '@fit-friends/shared-types';
 
 import { jwtConfig } from '../../config/jwt.config';
 import { RefreshTokenService } from '../refresh-token/refresh-token.service';
@@ -10,6 +10,7 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { UserRepository } from '../user/user.repository';
 import { UserEntity } from '../user/user.entity';
 import { LoggedUserRdo } from './rdo/logged-user.rdo';
+import { UserNotRegisteredException, UserPasswordWrongException } from '@fit-friends/core';
 
 @Injectable()
 export class AuthService {
@@ -24,13 +25,13 @@ export class AuthService {
     const existUser = await this.userRepository.findByEmail(email);
 
     if (!existUser) {
-      throw new Error('Пользователя не существует');
+      throw new UserNotRegisteredException(email);
     }
 
     const userEntity = new UserEntity(existUser);
 
     if (! await userEntity.comparePassword(password)) {
-      throw new Error('Неверный пароль');
+      throw new UserPasswordWrongException();
     }
 
     return userEntity.toObject();
