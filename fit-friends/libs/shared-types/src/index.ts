@@ -22,3 +22,4 @@ export * from './lib/token.interface';
 export * from './lib/token-payload.interface';
 export * from './lib/refresh-token-payload.interface';
 export * from './lib/profile.interface';
+export * from './lib/friend.interface';

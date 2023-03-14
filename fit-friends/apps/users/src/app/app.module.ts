@@ -11,6 +11,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { UserProfileModule } from './user-profile/user-profile.module';
 import { CoachProfileModule } from './coach-profile/coach-profile.module';
+import { FriendModule } from './friend/friend.module';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { CoachProfileModule } from './coach-profile/coach-profile.module';
     UserModule,
     AuthModule,
     UserProfileModule,
-    CoachProfileModule
+    CoachProfileModule,
+    FriendModule
   ]
 })
 export class AppModule {}
