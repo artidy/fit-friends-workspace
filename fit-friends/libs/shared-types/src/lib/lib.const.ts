@@ -28,3 +28,10 @@ export const FEATURES = [
   'детская комната',
   'массаж',
 ]
+
+export const MEAL_INTAKE_TYPES = [
+  'завтрак',
+  'обед',
+  'ужин',
+  'перекус',
+]
