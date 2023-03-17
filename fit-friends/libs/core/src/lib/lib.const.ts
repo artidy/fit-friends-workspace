@@ -70,6 +70,10 @@ enum DtoValidationMessage {
   IsNotMongoId = 'Неверный формат идентификатора'
 }
 
+enum EntityType {
+  MealDiary = 'Дневник питания',
+}
+
 const MONGO_CONFIG_TOKEN = 'mongodb';
 const DEFAULT_PORT = 3333;
 const DEFAULT_MONGO_PORT = '27017';
@@ -86,6 +90,7 @@ export {
   CaloriesLength,
   PasswordLength,
   CountLength,
+  EntityType,
   MONGO_CONFIG_TOKEN,
   DEFAULT_PORT,
   DEFAULT_MONGO_PORT,

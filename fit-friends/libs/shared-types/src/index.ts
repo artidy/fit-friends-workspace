@@ -23,3 +23,5 @@ export * from './lib/token-payload.interface';
 export * from './lib/refresh-token-payload.interface';
 export * from './lib/profile.interface';
 export * from './lib/friend.interface';
+export * from './lib/meal-diary.interface';
+export * from './lib/meal-intake-type.interface';

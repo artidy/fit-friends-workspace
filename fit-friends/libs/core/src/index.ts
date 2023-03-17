@@ -22,4 +22,5 @@ export * from './lib/exceptions/edit-data-forbidden.exception';
 export * from './lib/exceptions/profile-not-found.exception';
 export * from './lib/exceptions/profile-exists.exception';
 export * from './lib/exceptions/friend-exists.exception';
+export * from './lib/exceptions/entity-not-found.exception';
 export * from './lib/helpers';
