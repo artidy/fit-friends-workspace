@@ -1,17 +1,28 @@
 import { Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, UseFilters, UseGuards } from '@nestjs/common';
-import { fillObject, HttpExceptionFilter, MongoidValidationPipe, User } from '@fit-friends/core';
+import {
+  EditDataForbiddenException,
+  fillObject,
+  HttpExceptionFilter,
+  MongoidValidationPipe,
+  User,
+  UserNotFoundException
+} from '@fit-friends/core';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserRequest } from '@fit-friends/shared-types';
 
 import { FriendService } from './friend.service';
 import { UserRdo } from '../user/rdo/user.rdo';
 import { JwtAuthGuard } from '../user/guards/jwt-auth.guard';
+import { UserService } from '../user/user.service';
 
 @UseFilters(HttpExceptionFilter)
 @ApiTags('friends')
 @Controller('friends')
 export class FriendController {
-  constructor(private readonly friendService: FriendService) {}
+  constructor(
+    private readonly friendService: FriendService,
+    private readonly userService: UserService
+  ) {}
 
   @ApiResponse({
     status: HttpStatus.OK, description: 'Вы успешно получили данные'
@@ -32,6 +43,16 @@ export class FriendController {
   @Post(':friendId')
   @HttpCode(HttpStatus.CREATED)
   public async create(@Param('friendId', MongoidValidationPipe) friendId: string, @User() user: UserRequest) {
+    const userFriend = await this.userService.getUserById(friendId);
+
+    if (!userFriend) {
+      throw new UserNotFoundException(friendId);
+    }
+
+    if (user.role !== userFriend.role) {
+      throw new EditDataForbiddenException();
+    }
+
     const friend = await this.friendService.create(user.id, friendId);
 
     return fillObject(UserRdo, friend);

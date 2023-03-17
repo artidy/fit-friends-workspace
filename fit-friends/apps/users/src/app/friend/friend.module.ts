@@ -6,15 +6,16 @@ import { FriendController } from './friend.controller';
 import { FriendService } from './friend.service';
 import { FriendRepository } from './friend.repository';
 import { JwtStrategy } from '../user/strategies/jwt.strategy';
+import { UserModule } from '../user/user.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: FriendModel.name, schema: FriendSchema }
     ]),
+    UserModule
   ],
   controllers: [FriendController],
-  providers: [FriendService, FriendRepository, JwtStrategy],
-  exports: [FriendRepository]
+  providers: [FriendService, FriendRepository, JwtStrategy]
 })
 export class FriendModule {}
