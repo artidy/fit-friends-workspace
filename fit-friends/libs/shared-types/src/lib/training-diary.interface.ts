@@ -1,5 +1,6 @@
 export interface TrainingDiary {
-  id?: number;
+  _id?: string;
+  userId: string;
   trainingId: number;
   calories: number;
   elapsedTime: number;

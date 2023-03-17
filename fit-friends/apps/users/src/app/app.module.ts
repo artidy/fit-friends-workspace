@@ -13,6 +13,7 @@ import { UserProfileModule } from './user-profile/user-profile.module';
 import { CoachProfileModule } from './coach-profile/coach-profile.module';
 import { FriendModule } from './friend/friend.module';
 import { MealDiaryModule } from './meal-diary/meal-diary.module';
+import { TrainingDiaryModule } from './training-dairy/training-diary.module';
 
 @Module({
   imports: [
@@ -32,7 +33,8 @@ import { MealDiaryModule } from './meal-diary/meal-diary.module';
     UserProfileModule,
     CoachProfileModule,
     FriendModule,
-    MealDiaryModule
+    MealDiaryModule,
+    TrainingDiaryModule
   ]
 })
 export class AppModule {}

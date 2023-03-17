@@ -16,16 +16,16 @@ import { Auth, fillObject, HttpExceptionFilter, MongoidValidationPipe, User } fr
 import { UserRequest, UserRole } from '@fit-friends/shared-types';
 
 import { JwtAuthGuard } from '../user/guards/jwt-auth.guard';
-import { MealDiaryService } from './meal-diary.service';
-import { MealDiaryRdo } from './rdo/meal-diary.rdo';
-import { CreateMealDiaryDto } from './dto/create-meal-diary.dto';
-import { UpdateMealDiaryDto } from './dto/update-meal-diary.dto';
+import { TrainingDiaryService } from './training-diary.service';
+import { TrainingDiaryRdo } from './rdo/training-diary.rdo';
+import { CreateTrainingDiaryDto } from './dto/create-training-diary.dto';
+import { UpdateTrainingDiaryDto } from './dto/update-training-diary.dto';
 
 @UseFilters(HttpExceptionFilter)
-@ApiTags('meal-diary')
-@Controller('meal-diary')
-export class MealDiaryController {
-  constructor(private readonly mealDiaryService: MealDiaryService) {}
+@ApiTags('training-diary')
+@Controller('training-diary')
+export class TrainingDiaryController {
+  constructor(private readonly trainingDiaryService: TrainingDiaryService) {}
 
   @ApiResponse({
     status: HttpStatus.OK, description: 'Вы успешно получили данные'
@@ -35,9 +35,9 @@ export class MealDiaryController {
   @Get()
   @HttpCode(HttpStatus.OK)
   public async index(@User() user: UserRequest) {
-    const mealDiaries = await this.mealDiaryService.getByUserId(user.id);
+    const trainingDiaries = await this.trainingDiaryService.getByUserId(user.id);
 
-    return fillObject(MealDiaryRdo, mealDiaries);
+    return fillObject(TrainingDiaryRdo, trainingDiaries);
   }
 
   @ApiResponse({
@@ -47,10 +47,10 @@ export class MealDiaryController {
   @Auth(UserRole.User)
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  public async create(@Body() dto: CreateMealDiaryDto, @User() user: UserRequest) {
-    const mealDiary = await this.mealDiaryService.create(user.id, dto);
+  public async create(@Body() dto: CreateTrainingDiaryDto, @User() user: UserRequest) {
+    const trainingDiary = await this.trainingDiaryService.create(user.id, dto);
 
-    return fillObject(MealDiaryRdo, mealDiary);
+    return fillObject(TrainingDiaryRdo, trainingDiary);
   }
 
   @ApiResponse({
@@ -59,10 +59,10 @@ export class MealDiaryController {
   @UseGuards(JwtAuthGuard)
   @Auth(UserRole.User)
   @Patch(':id')
-  public async patch(@Param('id', MongoidValidationPipe) id: string, @Body() dto: UpdateMealDiaryDto) {
-    const mealDiary = await this.mealDiaryService.update(id, dto);
+  public async patch(@Param('id', MongoidValidationPipe) id: string, @Body() dto: UpdateTrainingDiaryDto) {
+    const trainingDiary = await this.trainingDiaryService.update(id, dto);
 
-    return fillObject(MealDiaryRdo, mealDiary);
+    return fillObject(TrainingDiaryRdo, trainingDiary);
   }
 
   @ApiResponse({
@@ -73,7 +73,7 @@ export class MealDiaryController {
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   public async delete(@Param('id', MongoidValidationPipe) id: string) {
-    await this.mealDiaryService.delete(id);
+    await this.trainingDiaryService.delete(id);
   }
 
   @ApiResponse({
@@ -84,6 +84,6 @@ export class MealDiaryController {
   @Delete()
   @HttpCode(HttpStatus.NO_CONTENT)
   public async deleteAll(@User() user: UserRequest) {
-    await this.mealDiaryService.deleteByUserId(user.id);
+    await this.trainingDiaryService.deleteByUserId(user.id);
   }
 }

@@ -72,6 +72,7 @@ enum DtoValidationMessage {
 
 enum EntityType {
   MealDiary = 'Дневник питания',
+  TrainingDiary = 'Дневник тренировок',
 }
 
 const MONGO_CONFIG_TOKEN = 'mongodb';
