@@ -1,11 +1,5 @@
 import { Entity } from '@fit-friends/core';
-import {
-  Duration,
-  Training,
-  TrainingGender,
-  TrainingLevel,
-  TrainingType
-} from '@fit-friends/shared-types';
+import { Training } from '@fit-friends/shared-types';
 
 export class TrainingEntity implements Entity<Training>, Training {
   id: number;
