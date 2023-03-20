@@ -14,6 +14,7 @@ import { CoachProfileModule } from './coach-profile/coach-profile.module';
 import { FriendModule } from './friend/friend.module';
 import { MealDiaryModule } from './meal-diary/meal-diary.module';
 import { TrainingDiaryModule } from './training-dairy/training-diary.module';
+import { GymFavoriteModule } from './gym-favorite/gym-favorite.module';
 
 @Module({
   imports: [
@@ -34,7 +35,8 @@ import { TrainingDiaryModule } from './training-dairy/training-diary.module';
     CoachProfileModule,
     FriendModule,
     MealDiaryModule,
-    TrainingDiaryModule
+    TrainingDiaryModule,
+    GymFavoriteModule,
   ]
 })
 export class AppModule {}

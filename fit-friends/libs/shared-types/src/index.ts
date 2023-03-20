@@ -26,3 +26,4 @@ export * from './lib/friend.interface';
 export * from './lib/meal-diary.interface';
 export * from './lib/meal-intake-type.interface';
 export * from './lib/training-diary.interface';
+export * from './lib/gym-favorite.interface';

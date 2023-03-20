@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { FriendExistsException } from '@fit-friends/core';
+import { EntityFoundException, EntityType } from '@fit-friends/core';
 
 import { FriendRepository } from './friend.repository';
 import { FriendEntity } from './friend.entity';
@@ -16,7 +16,7 @@ export class FriendService {
     const friendExist = await this.friendRepository.getFriend(userId, friendId);
 
     if (friendExist) {
-      throw new FriendExistsException(friendExist.userId);
+      throw new EntityFoundException(EntityType.Friend, friendExist.userId);
     }
 
     const friendEntity = new FriendEntity({
