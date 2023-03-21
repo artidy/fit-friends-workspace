@@ -12,6 +12,21 @@ enum EnvValidationMessage {
   PgAdminEmailNotRequired = 'PG admin email is not required',
   PgAdminServerModeNotRequired = 'PG admin server mode is not required',
   URLServiceNotRequired = 'URL service is not required',
+  ServerInvalid = 'Host smtp server is invalid',
+  ServerPortInvalid = 'Server port is invalid',
+  EmailIncorrect = 'Email incorrect',
+  UserIncorrect = 'User incorrect',
+  PasswordIncorrect = 'Password incorrect',
+  DBHostRequired = 'MongoDB host is required',
+  DBNameRequired = 'Database name is required',
+  DBPortRequired = 'MongoDB port is required',
+  DBUserRequired = 'MongoDB user is required',
+  DBPasswordRequired = 'MongoDB password is required',
+  DBBaseAuthRequired = 'MongoDB authentication base is required',
+  RabbitUserRequired = 'Rabbit user incorrect',
+  RabbitPasswordRequired = 'Rabbit password incorrect',
+  RabbitHostRequired = 'Rabbit host incorrect',
+  RabbitQueueRequired = 'Rabbit queue incorrect',
 }
 
 enum MongoOptionFields {

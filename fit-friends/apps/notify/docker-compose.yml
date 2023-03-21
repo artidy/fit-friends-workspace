@@ -1,0 +1,46 @@
+version: '3.5'
+services:
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    ports:
+      - '5672:5672'
+      - '1084:15672'
+    env_file:
+      - ../../environments/.notify.env
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  fakesmtp:
+    image: gessnerfl/fake-smtp-server
+    container_name: fakesmtp
+    ports:
+      - '5025:5025'
+      - '1083:5080'
+
+  mongodb:
+    image: mongo:5.0.14
+    restart: always
+    container_name: fit_friends_notify_mongodb
+    env_file:
+      - ../../environments/.notify.env
+    ports:
+      - "27018:27017"
+    volumes:
+      - ./db:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017 --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mongodb-express:
+    image: mongo-express:1.0.0-alpha.4
+    restart: always
+    container_name: fit_friends_notify_mongo-express
+    ports:
+      - "1086:8081"
+    env_file:
+      - ../../environments/.notify.env

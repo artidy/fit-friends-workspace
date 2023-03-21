@@ -1,3 +1,5 @@
+import { ConfigService } from '@nestjs/config';
+import { RmqOptions, Transport } from '@nestjs/microservices';
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { isObject } from 'class-validator';
 import { MongoConnection } from '@fit-friends/core';
@@ -23,8 +25,30 @@ function fillObject<T, V>(someDto: ClassConstructor<T>, plainObject: V) {
   return plainToInstance(someDto, plainObject, { excludeExtraneousValues: true });
 }
 
+function getRabbitmqConfig(configService: ConfigService): RmqOptions {
+  const user = configService.get<string>('rmq.user');
+  const password = configService.get<string>('rmq.password');
+  const host = configService.get<string>('rmq.host');
+  const queue = configService.get<string>('rmq.queue');
+  const url = `amqp://${user}:${password}@${host}`;
+
+  return {
+    transport: Transport.RMQ,
+    options: {
+      urls: [url],
+      queue,
+      persistent: true,
+      noAck: true,
+      queueOptions: {
+        durable: true,
+      }
+    }
+  }
+}
+
 export {
   getMongoConnectionString,
   fillEntity,
   fillObject,
+  getRabbitmqConfig,
 }
