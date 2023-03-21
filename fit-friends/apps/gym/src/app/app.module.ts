@@ -10,6 +10,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { GymModule } from './gym/gym.module';
 import { TrainingModule } from './training/training.module';
 import { OrderModule } from './order/order.module';
+import { rabbitmqOptions } from '../config/rabbitmq.config';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { OrderModule } from './order/order.module';
       cache: true,
       isGlobal: true,
       envFilePath: ENV_FILE_PATH,
-      load: [httpConfig, authConfig],
+      load: [httpConfig, authConfig, rabbitmqOptions],
       validate: validateEnvironments,
     }),
     HttpModule.registerAsync(getHttpOptions()),

@@ -3,6 +3,7 @@ import { RmqOptions, Transport } from '@nestjs/microservices';
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { isObject } from 'class-validator';
 import { MongoConnection } from '@fit-friends/core';
+import { CommandEvent } from '@fit-friends/shared-types';
 
 function getMongoConnectionString({username, password, host, port, databaseName, authDatabase}: MongoConnection): string {
   return `mongodb://${username}:${password}@${host}:${port}/${databaseName}?authSource=${authDatabase}`;
@@ -46,9 +47,14 @@ function getRabbitmqConfig(configService: ConfigService): RmqOptions {
   }
 }
 
+function createEvent(commandEvent: CommandEvent) {
+  return { cmd: commandEvent };
+}
+
 export {
   getMongoConnectionString,
   fillEntity,
   fillObject,
   getRabbitmqConfig,
+  createEvent,
 }

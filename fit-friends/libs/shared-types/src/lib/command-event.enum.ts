@@ -1,7 +1,7 @@
 export enum CommandEvent {
   GetCoachSubscribers = 'getCoachSubscribers',
   AddSubscriber = 'addSubscriber',
-  SendMessage = 'sendMessage',
+  AddNewTraining = 'addNewTraining',
   DeleteSubscriber = 'deleteSubscriber',
   UpdateSubscriber = 'updateSubscriber',
 }

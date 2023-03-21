@@ -9,14 +9,14 @@ import { EmailSubscriber } from '../app.constant';
 export class MailService {
   constructor(private readonly mailerService: MailerService) {}
 
-  public async addNewTraining(subscriber: Subscriber, coachName: string): Promise<SentMessageInfo>
+  public async addNewTraining(subscriber: Subscriber, trainingName: string): Promise<SentMessageInfo>
   {
     return this.mailerService.sendMail({
       to: subscriber.email,
       subject: EmailSubscriber.AddNewTraining,
       template: EmailSubscriber.AddNewTrainingTemplate,
       context: {
-        coachName: `${coachName}`,
+        trainingName: `${trainingName}`,
         user: `${subscriber.firstname}`
       }
     });

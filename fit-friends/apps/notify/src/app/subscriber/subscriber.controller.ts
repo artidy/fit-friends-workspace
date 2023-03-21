@@ -31,12 +31,12 @@ export class SubscriberController {
     return fillObject(SubscriberRdo, subscriber);
   }
 
-  @EventPattern({ cmd: CommandEvent.SendMessage })
-  public async sendMessage(coachId: string, coachName: string) {
+  @EventPattern({ cmd: CommandEvent.AddNewTraining })
+  public async addNewTraining(coachId: string, trainingName: string) {
     const subscribers = await this.subscriberService.findByCoachId(coachId);
 
     for (const subscriber of subscribers) {
-      await this.mailService.addNewTraining(subscriber, coachName);
+      await this.mailService.addNewTraining(subscriber, trainingName);
     }
 
     return EmailSubscriber.SuccessSend;
