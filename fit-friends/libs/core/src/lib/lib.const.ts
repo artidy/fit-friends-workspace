@@ -91,7 +91,8 @@ enum EntityType {
   Gym = 'Зал',
   Friend = 'Друг',
   UserProfile = 'Профиль пользователя',
-  CoachProfile = 'Профиль тренера'
+  CoachProfile = 'Профиль тренера',
+  Subscriber = 'Подписчик'
 }
 
 const MONGO_CONFIG_TOKEN = 'mongodb';

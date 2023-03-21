@@ -8,6 +8,7 @@ import { mailOptions } from '../config/mail.config';
 import { rabbitmqOptions } from '../config/rabbitmq.config';
 import { validateEnvironments } from './env.validation';
 import { MailModule } from './mail/mail.module';
+import { SubscriberModule } from './subscriber/subscriber.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { MailModule } from './mail/mail.module';
     MongooseModule.forRootAsync(
       getMongoDbOptions()
     ),
-    MailModule
+    MailModule,
+    SubscriberModule
   ],
 })
 export class AppModule {}

@@ -6,6 +6,7 @@ export * from './lib/training-gender.enum';
 export * from './lib/order-type.enum';
 export * from './lib/payment-type.enum';
 export * from './lib/application-status.enum';
+export * from './lib/command-event.enum';
 export * from './lib/user.interface';
 export * from './lib/location.interface';
 export * from './lib/training.interface';
