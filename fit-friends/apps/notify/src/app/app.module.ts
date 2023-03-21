@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
 import { getMongoDbOptions, mongodbConfig } from '@fit-friends/core';
 
 import { ENV_FILE_PATH } from './app.constant';
 import { mailOptions } from '../config/mail.config';
 import { rabbitmqOptions } from '../config/rabbitmq.config';
 import { validateEnvironments } from './env.validation';
-import { MongooseModule } from '@nestjs/mongoose';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { MongooseModule } from '@nestjs/mongoose';
     }),
     MongooseModule.forRootAsync(
       getMongoDbOptions()
-    )
+    ),
+    MailModule
   ],
 })
 export class AppModule {}
