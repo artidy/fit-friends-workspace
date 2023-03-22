@@ -3,5 +3,5 @@ export enum CommandEvent {
   AddSubscriber = 'addSubscriber',
   AddNewTraining = 'addNewTraining',
   DeleteSubscriber = 'deleteSubscriber',
-  UpdateSubscriber = 'updateSubscriber',
+  AddNewNotification = 'addNewNotification',
 }

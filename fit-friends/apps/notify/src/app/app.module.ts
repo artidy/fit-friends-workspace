@@ -9,6 +9,7 @@ import { rabbitmqOptions } from '../config/rabbitmq.config';
 import { validateEnvironments } from './env.validation';
 import { MailModule } from './mail/mail.module';
 import { SubscriberModule } from './subscriber/subscriber.module';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { SubscriberModule } from './subscriber/subscriber.module';
       getMongoDbOptions()
     ),
     MailModule,
-    SubscriberModule
+    SubscriberModule,
+    NotificationModule
   ],
 })
 export class AppModule {}
