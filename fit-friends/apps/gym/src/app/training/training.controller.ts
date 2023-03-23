@@ -16,6 +16,7 @@ export class TrainingController {
   @ApiResponse({
     status: HttpStatus.OK, description: 'Данные успешно получены'
   })
+  @Auth()
   @Get('/')
   public async index() {
     const trainings = await this.trainingService.findAll();
@@ -26,6 +27,7 @@ export class TrainingController {
   @ApiResponse({
     status: HttpStatus.OK, description: 'Данные успешно получены'
   })
+  @Auth()
   @Get('/:id')
   public async show(@Param('id') id: number) {
     const training = await this.trainingService.findById(id);
