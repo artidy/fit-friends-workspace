@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { createRandomGym } from '../helpers';
 
 const FINISHED_MESSAGE = 'База была заполнена';
 const FEATURES = [
@@ -7,6 +8,8 @@ const FEATURES = [
   'детская комната',
   'массаж',
 ]
+
+const GYMS_COUNT = 5;
 
 const prisma = new PrismaClient();
 
@@ -20,6 +23,14 @@ async function fillDb() {
         title: FEATURES[i]
       }
     });
+  }
+
+  for (let i = 0; i < GYMS_COUNT; i++) {
+    await prisma.gym.upsert({
+      where: { id: i + 1 },
+      update: {},
+      create: createRandomGym()
+    })
   }
 
   console.info(FINISHED_MESSAGE);
