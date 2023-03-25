@@ -4,5 +4,4 @@ export interface Comment {
   trainingId: number;
   rating: number;
   text: string;
-  createdAt: Date;
 }

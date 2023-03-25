@@ -12,6 +12,7 @@ import { TrainingModule } from './training/training.module';
 import { OrderModule } from './order/order.module';
 import { rabbitmqOptions } from '../config/rabbitmq.config';
 import { ApplicationModule } from './application/application.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -27,7 +28,8 @@ import { ApplicationModule } from './application/application.module';
     GymModule,
     TrainingModule,
     OrderModule,
-    ApplicationModule
+    ApplicationModule,
+    CommentModule
   ]
 })
 export class AppModule {}
