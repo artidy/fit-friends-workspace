@@ -15,7 +15,7 @@ export class ApplicationEntity implements Entity<Application>, Application {
     this.id = entity.id;
     this.userId = entity.userId;
     this.coachId = entity.coachId;
-    this.status = entity.status;
+    this.status = entity.status as ApplicationStatus;
   }
 
   toObject(): Application {

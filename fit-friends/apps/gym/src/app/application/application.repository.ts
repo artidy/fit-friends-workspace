@@ -39,6 +39,6 @@ export class ApplicationRepository implements CRUDRepository<ApplicationEntity, 
   }
 
   public async destroy(id: number): Promise<void> {
-    await this.prisma.gym.delete({ where: { id }});
+    await this.prisma.application.delete({ where: { id }});
   }
 }
