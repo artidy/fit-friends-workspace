@@ -18,12 +18,14 @@ export class OrderEntity implements Entity<Order>, Order {
   }
 
   fillEntity(entity: Order) {
+    this.id = entity.id;
     this.type = entity.type;
     this.serviceId = entity.serviceId;
     this.price = entity.price;
     this.count = entity.count;
     this.sum = entity.price * entity.count;
     this.paymentType = entity.paymentType;
+    this.createdAt = entity.createdAt;
 
     if (this.type === OrderType.Training) {
       this.trainingId = this.serviceId;
