@@ -7,10 +7,13 @@ type PrismaMockFunctionsType = {
   create: Mock;
   update: Mock;
   delete: Mock;
+  aggregate: Mock;
+  groupBy: Mock;
 }
 
 export type PrismaMockType = {
   application: PrismaMockFunctionsType;
+  comment: PrismaMockFunctionsType;
 }
 
 function getPrismaFunction(): PrismaMockFunctionsType {
@@ -20,9 +23,12 @@ function getPrismaFunction(): PrismaMockFunctionsType {
     create: jest.fn(),
     update: jest.fn(),
     delete: jest.fn(),
+    aggregate: jest.fn(),
+    groupBy: jest.fn(),
   }
 }
 
 export const prismaMock: PrismaMockType = {
-  application: getPrismaFunction()
+  application: getPrismaFunction(),
+  comment: getPrismaFunction(),
 }
