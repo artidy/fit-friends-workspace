@@ -16,6 +16,7 @@ export type PrismaMockType = {
   comment: PrismaMockFunctionsType;
   gym: PrismaMockFunctionsType;
   order: PrismaMockFunctionsType;
+  training: PrismaMockFunctionsType;
 }
 
 function getPrismaFunction(): PrismaMockFunctionsType {
@@ -35,4 +36,5 @@ export const prismaMock: PrismaMockType = {
   comment: getPrismaFunction(),
   gym: getPrismaFunction(),
   order: getPrismaFunction(),
+  training: getPrismaFunction(),
 }
