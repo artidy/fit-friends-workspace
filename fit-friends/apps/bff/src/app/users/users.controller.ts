@@ -36,4 +36,13 @@ export class UsersController {
   public async create(@Body() user, @Headers() headers) {
     return this.usersService.register(user, headers);
   }
+
+  @ApiResponse({
+    status: HttpStatus.OK, description: 'Токены доступа обновлены'
+  })
+  @Post(UrlPaths.Refresh)
+  @HttpCode(HttpStatus.OK)
+  public async refresh(@Headers() headers) {
+    return this.usersService.refresh(headers);
+  }
 }

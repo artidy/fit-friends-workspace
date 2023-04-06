@@ -57,6 +57,19 @@ export class UsersService {
     return data;
   }
 
+  public async refresh(headers) {
+    const { data } = await firstValueFrom(
+      this.httpService.post(
+        `${this.serviceAddress}/${UrlPaths.Auth}/${UrlPaths.Refresh}`,
+        {headers}
+      ).pipe(catchError((e) => {
+        throw new HttpException(e.response.data, e.response.status);
+      }))
+    )
+
+    return data;
+  }
+
   public async getAll(headers) {
     const { data } = await firstValueFrom(
       this.httpService.get(
