@@ -1,5 +1,7 @@
 enum AppRoute {
-  Main = '/'
+  Main = '/',
+  SignUp = 'signup',
+  SignIn = 'signin'
 }
 
 enum NameSpace {

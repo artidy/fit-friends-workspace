@@ -1,4 +1,13 @@
+import { Link, useNavigate } from "react-router-dom";
+import { AppRoute } from '../const';
+
 function IntroPage(): JSX.Element {
+  const navigate = useNavigate();
+
+  function signUpHandler() {
+    navigate(AppRoute.SignUp);
+  }
+
   return (
     <main>
       <div className="intro">
@@ -38,8 +47,9 @@ function IntroPage(): JSX.Element {
             </picture>
           </div>
           <div className="intro__buttons">
-            <button className="btn intro__button" type="button">Регистрация</button>
-            <p className="intro__text">Есть аккаунт? <a className="intro__link" href="#">Вход</a>
+            <button className="btn intro__button" type="button" onClick={signUpHandler}>Регистрация</button>
+            <p className="intro__text">Есть аккаунт?
+              <Link className="intro__link" to={AppRoute.SignIn}>Вход</Link>
             </p>
           </div>
         </div>
