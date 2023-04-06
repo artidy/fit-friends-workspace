@@ -1,7 +1,11 @@
+import QuestionnaireCoachPage from './pages/questionnaire-coach.page';
+
 enum AppRoute {
   Main = '/',
-  SignUp = 'signup',
-  SignIn = 'signin'
+  SignUp = '/signup',
+  SignIn = '/signin',
+  QuestionnaireCoach = '/questionnaire-coach',
+  QuestionnaireUser = '/questionnaire-user'
 }
 
 enum NameSpace {
