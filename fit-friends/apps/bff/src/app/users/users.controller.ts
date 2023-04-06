@@ -22,7 +22,7 @@ export class UsersController {
   @ApiResponse({
     status: HttpStatus.OK, description: 'Вы успешно авторизовались'
   })
-  @Post('login')
+  @Post(UrlPaths.Login)
   @HttpCode(HttpStatus.OK)
   public async login(@Body() user: LoginUser, @Headers() headers) {
     return this.usersService.login(user, headers);
@@ -31,7 +31,7 @@ export class UsersController {
   @ApiResponse({
     status: HttpStatus.CREATED, description: 'Новый пользователь создан'
   })
-  @Post('register')
+  @Post(UrlPaths.Register)
   @HttpCode(HttpStatus.CREATED)
   public async create(@Body() user, @Headers() headers) {
     return this.usersService.register(user, headers);

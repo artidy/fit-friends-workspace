@@ -1,21 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { UrlPaths } from '@fit-friends/core';
 import { User } from '@fit-friends/shared-types';
 
 import { AsyncThunkConfig } from '../../types/thunk-config';
-import { AuthorizationStatus, BffPaths, NameSpace } from '../../const';
+import { AuthorizationStatus, NameSpace } from '../../const';
 import { dropToken, getToken, saveToken } from '../../services/token';
 import { setAuthorizationStatus, setUser } from './user-data';
 import { CreateUser, LoggedUser, LoginUser } from '../../types/user';
 
 export const checkAuth = createAsyncThunk<void, undefined, AsyncThunkConfig>(
-  `${NameSpace.User}/checkAuth`,
+  `${NameSpace.User}/${UrlPaths.Verify}`,
   async (_arg, { dispatch, extra: api }) => {
     try {
       const token = getToken();
 
       if (token) {
-        const { data } = await api.get<User>(BffPaths.Users);
+        const { data } = await api.get<User>(UrlPaths.Users);
         dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
         dispatch(setUser(data));
 
@@ -31,10 +32,10 @@ export const checkAuth = createAsyncThunk<void, undefined, AsyncThunkConfig>(
 );
 
 export const login = createAsyncThunk<void, LoginUser, AsyncThunkConfig>(
-  `${NameSpace.User}/login`,
+  `${NameSpace.User}/${UrlPaths.Login}`,
   async (authData, { dispatch, extra: api }) => {
     try {
-      const {data} = await api.post<LoggedUser>(`${BffPaths.Users}/login`, authData);
+      const {data} = await api.post<LoggedUser>(`${UrlPaths.Users}/${UrlPaths.Login}`, authData);
       saveToken(data.accessToken);
       dispatch(checkAuth());
     } catch {
@@ -44,11 +45,11 @@ export const login = createAsyncThunk<void, LoginUser, AsyncThunkConfig>(
 );
 
 export const registerUser = createAsyncThunk<void, CreateUser, AsyncThunkConfig>(
-  `${NameSpace.User}/register`,
+  `${NameSpace.User}/${UrlPaths.Register}`,
   async (userData, { extra: api }) => {
 
     try {
-      await api.post<User>(`${BffPaths.Users}/register`, userData);
+      await api.post<User>(`${UrlPaths.Users}/${UrlPaths.Register}`, userData);
       toast.success('Sign up is success');
     } catch {
       toast.error('Can\'t Sign up');

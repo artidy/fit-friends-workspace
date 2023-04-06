@@ -1,6 +1,6 @@
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Controller, HttpCode, HttpStatus, Post, UseFilters, UseGuards } from '@nestjs/common';
-import { fillObject, HttpExceptionFilter, User } from '@fit-friends/core';
+import { fillObject, HttpExceptionFilter, UrlPaths, User } from '@fit-friends/core';
 import { UserRequest } from '@fit-friends/shared-types';
 
 import { AuthService } from './auth.service';
@@ -9,13 +9,13 @@ import { LoggedUserRdo } from './rdo/logged-user.rdo';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 
 @UseFilters(HttpExceptionFilter)
-@ApiTags('auth')
-@Controller('auth')
+@ApiTags(UrlPaths.Auth)
+@Controller(UrlPaths.Auth)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @UseGuards(LocalAuthGuard)
-  @Post('login')
+  @Post(UrlPaths.Login)
   @HttpCode(HttpStatus.OK)
   @ApiResponse({
     type: LoggedUserRdo,
@@ -31,7 +31,7 @@ export class AuthController {
   }
 
   @UseGuards(JwtRefreshGuard)
-  @Post('refresh')
+  @Post(UrlPaths.Refresh)
   @HttpCode(HttpStatus.OK)
   @ApiResponse({
     status: HttpStatus.OK,
@@ -49,7 +49,7 @@ export class AuthController {
   }
 
   @UseGuards(JwtRefreshGuard)
-  @Post('logout')
+  @Post(UrlPaths.Logout)
   @HttpCode(HttpStatus.OK)
   @ApiResponse({
     status: HttpStatus.OK,

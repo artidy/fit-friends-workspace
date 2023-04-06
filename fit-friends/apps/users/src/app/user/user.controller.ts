@@ -12,7 +12,14 @@ import {
   UseGuards
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { fillObject, HttpExceptionFilter, MongoidValidationPipe, User, EditDataForbiddenException } from '@fit-friends/core';
+import {
+  fillObject,
+  HttpExceptionFilter,
+  MongoidValidationPipe,
+  User,
+  EditDataForbiddenException,
+  UrlPaths
+} from '@fit-friends/core';
 import { UserRequest } from '@fit-friends/shared-types';
 
 import { UserService } from './user.service';
@@ -22,8 +29,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @UseFilters(HttpExceptionFilter)
-@ApiTags('users')
-@Controller('users')
+@ApiTags(UrlPaths.Users)
+@Controller(UrlPaths.Users)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -64,7 +71,7 @@ export class UserController {
   @ApiResponse({
     status: HttpStatus.OK, description: 'Проверка пользователя прошла успешно'
   })
-  @Get('jwt/verify')
+  @Get(UrlPaths.Verify)
   public async verify(@User() userRequest: UserRequest) {
     const user = await this.userService.getUserById(userRequest.id);
 

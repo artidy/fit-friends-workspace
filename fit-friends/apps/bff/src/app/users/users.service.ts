@@ -19,7 +19,7 @@ export class UsersService {
   public async verify(headers) {
     const { data } = await firstValueFrom(
       this.httpService.get(
-        `${this.serviceAddress}/${UrlPaths.Users}/jwt/verify`,
+        `${this.serviceAddress}/${UrlPaths.Users}/${UrlPaths.Verify}`,
         {headers}
       ).pipe(catchError((e) => {
         throw new HttpException(e.response.data, e.response.status);
@@ -32,7 +32,7 @@ export class UsersService {
   public async register(user, headers) {
     const { data } = await firstValueFrom(
       this.httpService.post(
-        `${this.serviceAddress}/${UrlPaths.Auth}/register`,
+        `${this.serviceAddress}/${UrlPaths.Auth}/${UrlPaths.Register}`,
         user,
         {headers}
       ).pipe(catchError((e) => {
@@ -46,7 +46,7 @@ export class UsersService {
   public async login(user: LoginUser, headers) {
     const { data } = await firstValueFrom(
       this.httpService.post(
-        `${this.serviceAddress}/${UrlPaths.Auth}/login`,
+        `${this.serviceAddress}/${UrlPaths.Auth}/${UrlPaths.Login}`,
         user,
         {headers}
       ).pipe(catchError((e) => {

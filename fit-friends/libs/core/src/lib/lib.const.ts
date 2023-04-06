@@ -98,6 +98,11 @@ enum EntityType {
 enum UrlPaths {
   Auth = 'auth',
   Users = 'users',
+  Verify = 'jwt/verify',
+  Login = 'login',
+  Register = 'register',
+  Refresh = 'refresh',
+  Logout = 'logout'
 }
 
 const MONGO_CONFIG_TOKEN = 'mongodb';
