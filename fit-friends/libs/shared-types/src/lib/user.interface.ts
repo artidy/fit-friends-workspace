@@ -20,3 +20,22 @@ export interface UserRequest {
   name: string
   refreshTokenId?: string;
 }
+
+export interface LoginUser {
+  email: string;
+  password: string;
+}
+
+export interface LoggedUser {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+  gender: UserGender;
+  birthDate?: Date;
+  role: UserRole;
+  location: Location;
+  createdAt: Date;
+  accessToken: string;
+  password: string;
+}
