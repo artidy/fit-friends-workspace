@@ -27,6 +27,6 @@ import { UserModule } from '../user/user.module';
     AuthService,
     LocalStrategy,
     JwtRefreshStrategy,
-  ],
+  ]
 })
 export class AuthModule {}

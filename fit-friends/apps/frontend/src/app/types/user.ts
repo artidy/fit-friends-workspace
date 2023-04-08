@@ -1,16 +1,29 @@
+import { UserGender, UserRole } from '../const';
+
+export type User = {
+  _id?: string;
+  name: string;
+  email: string;
+  avatar: string;
+  gender: UserGender;
+  birthDate?: Date;
+  role: UserRole;
+  location: string;
+  passwordHash?: string;
+  createdAt: Date;
+}
+
 export type LoginUser = {
   email: string;
   password: string;
 }
 
-export type LoggedUser = {
-  id: string;
-  email: string;
-  accessToken: string;
-}
-
 export type CreateUser = {
-  email: string;
   name: string;
+  email: string;
   password: string;
+  gender: UserGender;
+  birthDate?: Date;
+  role: UserRole;
+  location: string;
 }

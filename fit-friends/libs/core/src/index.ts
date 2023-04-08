@@ -22,6 +22,5 @@ export * from './lib/exceptions/edit-data-forbidden.exception';
 export * from './lib/exceptions/profile-not-found.exception';
 export * from './lib/exceptions/entity-not-found.exception';
 export * from './lib/exceptions/entity-found.exception';
-export * from './lib/exceptions/status-set.exception';
 export * from './lib/test/prisma.mock';
 export * from './lib/helpers';

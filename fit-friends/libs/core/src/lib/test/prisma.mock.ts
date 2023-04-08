@@ -1,40 +1,39 @@
-import { jest } from '@jest/globals';
-import { Mock } from 'jest-mock';
-
-type PrismaMockFunctionsType = {
-  findMany: Mock;
-  findFirst: Mock;
-  create: Mock;
-  update: Mock;
-  delete: Mock;
-  aggregate: Mock;
-  groupBy: Mock;
+interface PrismaFunctions {
+  findMany: Function;
+  findFirst: Function;
+  create: Function;
+  update: Function;
+  delete: Function;
+  aggregate: Function;
+  groupBy: Function;
 }
 
-export type PrismaMockType = {
-  application: PrismaMockFunctionsType;
-  comment: PrismaMockFunctionsType;
-  gym: PrismaMockFunctionsType;
-  order: PrismaMockFunctionsType;
-  training: PrismaMockFunctionsType;
+export interface PrismaMock {
+  application: PrismaFunctions;
+  comment: PrismaFunctions;
+  gym: PrismaFunctions;
+  order: PrismaFunctions;
+  training: PrismaFunctions;
 }
 
-function getPrismaFunction(): PrismaMockFunctionsType {
+function getPrismaFunction(): PrismaFunctions {
   return {
-    findMany: jest.fn(),
-    findFirst: jest.fn(),
-    create: jest.fn(),
-    update: jest.fn(),
-    delete: jest.fn(),
-    aggregate: jest.fn(),
-    groupBy: jest.fn(),
+    findMany: () => {},
+    findFirst: () => {},
+    create: () => {},
+    update: () => {},
+    delete: () => {},
+    aggregate: () => {},
+    groupBy: () => {},
   }
 }
 
-export const prismaMock: PrismaMockType = {
-  application: getPrismaFunction(),
-  comment: getPrismaFunction(),
-  gym: getPrismaFunction(),
-  order: getPrismaFunction(),
-  training: getPrismaFunction(),
+export function generatePrismaMock(): PrismaMock {
+  return {
+    application: getPrismaFunction(),
+    comment: getPrismaFunction(),
+    gym: getPrismaFunction(),
+    order: getPrismaFunction(),
+    training: getPrismaFunction(),
+  }
 }

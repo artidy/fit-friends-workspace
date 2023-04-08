@@ -3,4 +3,6 @@ export interface Application {
   userId: string;
   coachId: string;
   status: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

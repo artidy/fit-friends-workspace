@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DeepMockProxy, mockDeep } from 'jest-mock-extended';
-import { prismaMock, PrismaMockType } from '@fit-friends/core';
 import { Application, ApplicationStatus } from '@fit-friends/shared-types';
 
 import { ApplicationRepository } from '../../app/application/application.repository';
@@ -8,33 +7,36 @@ import { PrismaService } from '../../app/prisma/prisma.service';
 import { ApplicationEntity } from '../../app/application/application.entity';
 
 describe('ApplicationRepository', () => {
-  const application: Application = {
+  const application: Application & { id: number, createdAt: Date, updatedAt: Date } = {
     id: 1,
     userId: '507f191e810c19729de860ea',
     coachId: '507f191e810c14359de860fr',
-    status: ApplicationStatus.Pending
+    status: ApplicationStatus.Pending,
+    createdAt: new Date('20230101'),
+    updatedAt: new Date('20230103'),
   };
 
   let applicationRepository: ApplicationRepository;
-  let prismaService: PrismaMockType;
+  let prismaService: DeepMockProxy<PrismaService>;
   let applicationEntity: DeepMockProxy<ApplicationEntity>;
 
   beforeEach(async () => {
+    prismaService = mockDeep<PrismaService>();
+    applicationEntity = mockDeep<ApplicationEntity>();
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [PrismaService, ApplicationRepository]
     })
       .overrideProvider(PrismaService)
-      .useValue(prismaMock)
+      .useValue(prismaService)
       .compile();
 
     applicationRepository = module.get<ApplicationRepository>(ApplicationRepository);
-    prismaService = module.get<PrismaMockType>(PrismaService);
-    applicationEntity = mockDeep<ApplicationEntity>();
   });
 
   describe('findByUserId', () => {
     it('should return applications filtered by userId', async () => {
-      prismaService.application.findMany.mockReturnValue([application]);
+      prismaService.application.findMany.mockResolvedValue([application]);
       const result = await applicationRepository.findByUserId(application.userId);
 
       expect(result).toContain(application);
@@ -48,7 +50,7 @@ describe('ApplicationRepository', () => {
 
   describe('findByCoachId', () => {
     it('should return applications filtered by сoachId', async () => {
-      prismaService.application.findMany.mockReturnValue([application]);
+      prismaService.application.findMany.mockResolvedValue([application]);
       const result = await applicationRepository.findByCoachId(application.coachId);
 
       expect(result).toContain(application);
@@ -62,8 +64,8 @@ describe('ApplicationRepository', () => {
 
   describe('findById', () => {
     it('should return application by id', async () => {
-      prismaService.application.findFirst.mockReturnValue(application);
-      const result = await applicationRepository.findById(application.id);
+      prismaService.application.findFirst.mockResolvedValue(application);
+      const result = await applicationRepository.findById(application.id ?? 0);
 
       expect(result).toEqual(application);
       expect(prismaService.application.findFirst).toHaveBeenCalledWith({
@@ -77,7 +79,7 @@ describe('ApplicationRepository', () => {
   describe('create', () => {
     it('should create and return new application', async () => {
       applicationEntity.toObject.mockReturnValue(application);
-      prismaService.application.create.mockReturnValue(application);
+      prismaService.application.create.mockResolvedValue(application);
 
       const result = await applicationRepository.create(applicationEntity);
 
@@ -91,7 +93,7 @@ describe('ApplicationRepository', () => {
   describe('update', () => {
     it('should update and return updated application', async () => {
       applicationEntity.toObject.mockReturnValue(application);
-      prismaService.application.update.mockReturnValue(application);
+      prismaService.application.update.mockResolvedValue(application);
 
       const result = await applicationRepository.update(application.id, applicationEntity);
 

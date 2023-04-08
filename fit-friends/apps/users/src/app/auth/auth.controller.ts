@@ -56,7 +56,7 @@ export class AuthController {
     description: 'Logout'
   })
   public async logout(@User() user: UserRequest) {
-    const tokenData = this.authService.logout(user.refreshTokenId);
+    const tokenData = this.authService.logout(user.refreshTokenId ?? '');
 
     return fillObject(LoggedUserRdo, tokenData);
   }

@@ -27,7 +27,11 @@ export class RefreshTokenService {
     return this.refreshTokenRepository.create(refreshToken);
   }
 
-  public async deleteRefreshSession(tokenId: string) {
+  public async deleteRefreshSession(tokenId?: string) {
+    if (!tokenId) {
+      return;
+    }
+
     await this.deleteExpiredRefreshTokens();
 
     return this.refreshTokenRepository.deleteByTokenId(tokenId)

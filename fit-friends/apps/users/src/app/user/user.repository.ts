@@ -30,9 +30,7 @@ export class UserRepository implements CRUDRepository<UserEntity, string, User> 
   }
 
   public async update(id: string, user: UserEntity): Promise<User> {
-    return this.userModel
-      .findByIdAndUpdate(id, user.toObject(), {new: true})
-      .exec();
+    return this.userModel.findByIdAndUpdate(id, user.toObject(), {new: true});
   }
 
   public async destroy(id: string): Promise<void> {

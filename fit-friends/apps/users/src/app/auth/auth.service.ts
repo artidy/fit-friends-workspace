@@ -39,7 +39,7 @@ export class AuthService {
 
   public async loginUser(user: Pick<User, '_id' | 'email' | 'role' | 'name'>, refreshTokenId?: string): Promise<LoggedUserRdo> {
     const payload: TokenPayload = {
-      id: user._id,
+      id: user._id ?? '',
       email: user.email,
       role: user.role,
       name: user.name

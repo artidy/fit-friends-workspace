@@ -1,7 +1,6 @@
-import { User } from '@fit-friends/shared-types';
-
 import { AuthorizationStatus } from '../const';
 import { store } from '../store';
+import { User } from './user';
 
 export type UserState = {
   authorizationStatus: AuthorizationStatus;
