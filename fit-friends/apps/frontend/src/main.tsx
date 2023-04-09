@@ -8,10 +8,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import App from './app/app';
 import { store } from './app/store';
+import { verify } from './app/store/user-data/api-actions';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+store.dispatch(verify());
+
 root.render(
   <StrictMode>
     <Provider store={store}>
