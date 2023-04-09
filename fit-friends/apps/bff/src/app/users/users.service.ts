@@ -32,7 +32,7 @@ export class UsersService {
   public async register(user, headers) {
     const { data } = await firstValueFrom(
       this.httpService.post(
-        `${this.serviceAddress}/${UrlPaths.Auth}/${UrlPaths.Register}`,
+        `${this.serviceAddress}/${UrlPaths.Users}`,
         user,
         {headers}
       ).pipe(catchError((e) => {

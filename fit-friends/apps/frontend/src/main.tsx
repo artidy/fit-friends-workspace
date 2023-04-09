@@ -2,6 +2,9 @@ import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 import App from './app/app';
 import { store } from './app/store';
@@ -13,6 +16,7 @@ root.render(
   <StrictMode>
     <Provider store={store}>
       <BrowserRouter>
+        <ToastContainer />
         <App />
       </BrowserRouter>
     </Provider>

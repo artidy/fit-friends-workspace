@@ -1,27 +1,6 @@
 import { Outlet } from 'react-router-dom';
-import { useEffect } from 'react';
-
-import { EXTERNAL_SCRIPTS } from '../const';
 
 function LayoutPage(): JSX.Element {
-  const scripts: Node[] = [];
-
-  useEffect(() => {
-    EXTERNAL_SCRIPTS.forEach((scriptLink) => {
-      const script = document.createElement('script');
-      script.src = scriptLink;
-      script.async = true;
-      document.body.appendChild(script);
-      scripts.push(script);
-    });
-
-    return () => {
-      scripts.forEach((script) => {
-        document.body.removeChild(script);
-      });
-    }
-  }, []);
-
   return (
     <>
       <div className="visually-hidden">

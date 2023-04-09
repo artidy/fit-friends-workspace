@@ -37,6 +37,13 @@ enum UrlPaths {
   Logout = 'logout'
 }
 
+enum Message {
+  UnknownMessage = 'Неизвестная ошибка, обратитесь к администратору',
+  SuccessRegistration = 'Регистрация прошла успешно',
+  SuccessAuthorization = 'Вы успешно авторизовались',
+  RefreshTokenExpired = 'Время текущего сеанса истекло',
+}
+
 const USER_ROLES = [
   {
     role: UserRole.Coach,
@@ -56,11 +63,6 @@ const LOCATIONS = [
   'Спортивная',
 ]
 
-const EXTERNAL_SCRIPTS = [
-  'assets/js/vendor.min.js',
-  'assets/js/main.min.js'
-]
-
 const DEFAULT_REQUEST_TIMEOUT = 5000;
 const TOKEN = 'fit-friends-token';
 const REFRESH_TOKEN = 'fit-friends-refresh-token';
@@ -73,7 +75,7 @@ export {
   UserGender,
   UserRole,
   UrlPaths,
-  EXTERNAL_SCRIPTS,
+  Message,
   USER_ROLES,
   LOCATIONS,
   DEFAULT_REQUEST_TIMEOUT,
