@@ -4,7 +4,7 @@ export class UserProfileEntity implements UserProfile {
   public _id: string;
   public userId: string;
   public level: TrainingLevel;
-  public type: TrainingType;
+  public types: TrainingType[];
   public duration: Duration;
   public loseCalories: number;
   public loseCaloriesPerDay: number;
@@ -22,7 +22,7 @@ export class UserProfileEntity implements UserProfile {
     this._id = entity._id;
     this.userId = entity.userId;
     this.level = entity.level;
-    this.type = entity.type;
+    this.types = entity.types;
     this.duration = entity.duration;
     this.loseCalories = entity.loseCalories;
     this.loseCaloriesPerDay = entity.loseCaloriesPerDay;

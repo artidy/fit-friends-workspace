@@ -1,7 +1,18 @@
+import { Navigate } from 'react-router-dom';
+
 import RegisterFormComponent from '../components/register-form/register-form.component';
 import BackgroundComponent from '../components/background/background.component';
+import { useAppSelector } from '../hooks';
+import { getIsAuth } from '../store/user-data/selectors';
+import { AppRoute } from '../const';
 
 function SignUpPage(): JSX.Element {
+  const isAuth = useAppSelector(getIsAuth);
+
+  if (isAuth) {
+    return <Navigate to={AppRoute.Questionnaire} />
+  }
+
   return (
     <main>
       <BackgroundComponent />

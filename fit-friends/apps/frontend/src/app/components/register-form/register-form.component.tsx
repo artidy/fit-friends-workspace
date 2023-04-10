@@ -15,7 +15,7 @@ function RegisterFormComponent() {
   const [birthDate, setBirthDate] = useState<string>('');
   const [role, setRole] = useState<UserRole>(UserRole.User);
   const [location, setLocation] = useState<string>('');
-  const [isAgreementConfirmed, setIsAgreementConfirmed] = useState<boolean>(true);
+  const [isAgreementConfirmed, setIsAgreementConfirmed] = useState<boolean>(false);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -176,7 +176,7 @@ function RegisterFormComponent() {
               type="checkbox"
               value="user-agreement"
               name="user-agreement"
-              onChange={(evt) => setIsAgreementConfirmed(!evt.currentTarget.checked)}
+              onChange={(evt) => setIsAgreementConfirmed(evt.currentTarget.checked)}
               checked={isAgreementConfirmed}
             />
             <span className="sign-up__checkbox-icon">

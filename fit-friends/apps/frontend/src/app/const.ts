@@ -1,13 +1,16 @@
+import { questionnaireData } from './store/questionnaire-data/questionnaire-data';
+import { Questionnaire } from './types/questionnaire';
+
 enum AppRoute {
   Main = '/',
   SignUp = '/signup',
   SignIn = '/signin',
-  QuestionnaireCoach = '/questionnaire-coach',
-  QuestionnaireUser = '/questionnaire-user'
+  Questionnaire = '/questionnaire',
 }
 
 enum NameSpace {
   User = 'USER',
+  Questionnaire = 'QUESTIONNAIRE',
 }
 
 enum AuthorizationStatus {
@@ -34,7 +37,9 @@ enum UrlPaths {
   Login = 'login',
   Register = 'register',
   Refresh = 'refresh',
-  Logout = 'logout'
+  Logout = 'logout',
+  QuestionnaireCoach = 'coach-profile',
+  QuestionnaireUser = 'user-profile'
 }
 
 enum Message {
@@ -55,12 +60,28 @@ const USER_ROLES = [
   }
 ]
 
+const TRAINING_TYPES = [
+  'йога',
+  'бег',
+  'бокс',
+  'стрейчинг',
+  'кроссфит',
+  'аэробика',
+  'пилатес',
+]
+
 const LOCATIONS = [
   'Пионерская',
   'Петроградская',
   'Удельная',
   'Звёздная',
   'Спортивная',
+]
+
+const TRAINING_LEVELS = [
+  'новичок',
+  'любитель',
+  'профессионал',
 ]
 
 const DEFAULT_REQUEST_TIMEOUT = 5000;
@@ -77,7 +98,9 @@ export {
   UrlPaths,
   Message,
   USER_ROLES,
+  TRAINING_TYPES,
   LOCATIONS,
+  TRAINING_LEVELS,
   DEFAULT_REQUEST_TIMEOUT,
   TOKEN,
   REFRESH_TOKEN,

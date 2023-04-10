@@ -24,7 +24,7 @@ export class UpdateUserProfileDto {
   @IsIn(TRAINING_TYPES, {
     message: DtoValidationMessage.ArrayIsNotContains
   })
-  type?: TrainingType;
+  type?: TrainingType[];
 
   @ApiProperty({
     description: 'Продолжительность тренировки в минутах.',

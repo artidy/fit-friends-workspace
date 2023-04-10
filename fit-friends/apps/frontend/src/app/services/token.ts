@@ -6,6 +6,12 @@ export const getToken = (tokenType: string) => {
   return token ?? '';
 };
 
+export const getActiveToken = () => {
+  const token = localStorage.getItem(TOKEN);
+
+  return token ?? localStorage.getItem(REFRESH_TOKEN);
+};
+
 export const saveTokens = (accessToken: string, refreshToken: string) => {
   localStorage.setItem(TOKEN, accessToken);
   localStorage.setItem(REFRESH_TOKEN, refreshToken);

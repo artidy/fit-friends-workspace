@@ -102,7 +102,9 @@ enum UrlPaths {
   Login = 'login',
   Register = 'register',
   Refresh = 'refresh',
-  Logout = 'logout'
+  Logout = 'logout',
+  QuestionnaireCoach = 'coach-profile',
+  QuestionnaireUser = 'user-profile',
 }
 
 const MONGO_CONFIG_TOKEN = 'mongodb';

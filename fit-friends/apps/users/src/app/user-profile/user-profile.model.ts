@@ -22,7 +22,7 @@ class UserProfileModel extends Document implements UserProfile {
     required: true,
     type: String
   })
-  public type: TrainingType;
+  public types: TrainingType[];
 
   @Prop({
     required: true,

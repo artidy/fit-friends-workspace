@@ -27,6 +27,7 @@ export class CoachProfileService {
 
     const coachProfileEntity = new CoachProfileEntity({
       ...dto,
+      userId,
       certificate: ''
     });
 

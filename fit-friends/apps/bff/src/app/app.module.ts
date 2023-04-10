@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
-
 import { ENV_FILE_PATH } from './const';
 import { bffConfig } from '../config/bff.config';
 import { validateEnvironments } from './env.validation';
 import { UsersModule } from './users/users.module';
+import { QuestionnaireCoachModule } from './questionnaire-coach/questionnaire-coach.module';
 
 @Module({
   imports: [
@@ -17,6 +17,7 @@ import { UsersModule } from './users/users.module';
       validate: validateEnvironments,
     }),
     UsersModule,
+    QuestionnaireCoachModule,
   ]
 })
 export class AppModule {}

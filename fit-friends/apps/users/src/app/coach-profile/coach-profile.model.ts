@@ -20,13 +20,11 @@ class CoachProfileModel extends Document implements CoachProfile {
 
   @Prop({
     required: true,
-    type: String
+    type: [String]
   })
-  public type: TrainingType;
+  public types: TrainingType[];
 
-  @Prop({
-    required: true
-  })
+  @Prop()
   public certificate: string;
 
   @Prop({

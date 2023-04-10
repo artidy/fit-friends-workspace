@@ -4,7 +4,7 @@ export class CoachProfileEntity implements CoachProfile {
   public _id: string;
   public userId: string;
   public level: TrainingLevel;
-  public type: TrainingType;
+  public types: TrainingType[];
   public certificate: string;
   public merits: string;
   public isPersonalTraining: boolean;
@@ -21,7 +21,7 @@ export class CoachProfileEntity implements CoachProfile {
     this._id = entity._id;
     this.userId = entity.userId;
     this.level = entity.level;
-    this.type = entity.type;
+    this.types = entity.types;
     this.certificate = entity.certificate;
     this.merits = entity.merits;
     this.isPersonalTraining = entity.isPersonalTraining;

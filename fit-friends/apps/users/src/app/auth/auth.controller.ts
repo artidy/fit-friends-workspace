@@ -1,5 +1,5 @@
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Controller, HttpCode, HttpStatus, Post, UseFilters, UseGuards } from '@nestjs/common';
+import { Controller, Get, HttpCode, HttpStatus, Post, UseFilters, UseGuards } from '@nestjs/common';
 import { fillObject, HttpExceptionFilter, UrlPaths, User } from '@fit-friends/core';
 import { UserRequest } from '@fit-friends/shared-types';
 
@@ -31,7 +31,7 @@ export class AuthController {
   }
 
   @UseGuards(JwtRefreshGuard)
-  @Post(UrlPaths.Refresh)
+  @Get(UrlPaths.Refresh)
   @HttpCode(HttpStatus.OK)
   @ApiResponse({
     status: HttpStatus.OK,

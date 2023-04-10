@@ -31,10 +31,10 @@ export class CoachProfileRdo {
   @ApiProperty({
     description: 'Тип тренировки.',
     required: true,
-    example: TRAINING_TYPES[0]
+    example: TRAINING_TYPES
   })
   @Expose()
-  public type: TrainingType;
+  public type: TrainingType[];
 
   @ApiProperty({
     description: 'Текст с описанием заслуг тренера.',

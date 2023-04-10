@@ -18,13 +18,13 @@ export class UpdateCoachProfileDto {
   @ApiProperty({
     description: 'Тип тренировки.',
     required: false,
-    example: TRAINING_TYPES[0]
+    example: TRAINING_TYPES
   })
   @IsOptional()
   @IsIn(TRAINING_TYPES, {
     message: DtoValidationMessage.ArrayIsNotContains
   })
-  type?: TrainingType;
+  type?: TrainingType[];
 
   @ApiProperty({
     description: 'Текст с описанием заслуг тренера.',

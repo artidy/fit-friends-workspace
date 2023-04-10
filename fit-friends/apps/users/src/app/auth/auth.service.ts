@@ -46,6 +46,7 @@ export class AuthService {
     };
 
     await this.refreshTokenService.deleteRefreshSession(refreshTokenId);
+    console.log(refreshTokenId);
 
     const refreshTokenPayload: RefreshTokenPayload = {
       ...payload, refreshTokenId: randomUUID()

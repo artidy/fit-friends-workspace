@@ -4,7 +4,7 @@ export interface Profile {
   _id?: string;
   userId: string;
   level: TrainingLevel;
-  type: TrainingType;
+  types: TrainingType[];
 }
 
 export interface UserProfile extends Profile {

@@ -22,7 +22,6 @@ import {
 } from '@fit-friends/core';
 import { UserRequest, UserRole } from '@fit-friends/shared-types';
 
-import { JwtAuthGuard } from '../user/guards/jwt-auth.guard';
 import { CoachProfileService } from './coach-profile.service';
 import { CoachProfileRdo } from './rdo/coach-profile.rdo';
 import { CreateCoachProfileDto } from './dto/create-coach-profile.dto';
@@ -56,7 +55,6 @@ export class CoachProfileController {
     return fillObject(CoachProfileRdo, coachProfile);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Auth(UserRole.Coach)
   @ApiResponse({
     status: HttpStatus.CREATED, description: 'Новый профиль тренера создан'
@@ -69,7 +67,6 @@ export class CoachProfileController {
     return fillObject(CoachProfileRdo, coachProfile);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Auth(UserRole.Coach)
   @ApiResponse({
     status: HttpStatus.OK, description: 'Данные профиля тренера успешно обновлены'
@@ -86,7 +83,6 @@ export class CoachProfileController {
     return fillObject(CoachProfileRdo, coachProfile);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Auth(UserRole.Coach)
   @ApiResponse({
     status: HttpStatus.NO_CONTENT, description: 'Профиль тренера успешно удален'

@@ -40,7 +40,7 @@ export class UsersController {
   @ApiResponse({
     status: HttpStatus.OK, description: 'Токены доступа обновлены'
   })
-  @Post(UrlPaths.Refresh)
+  @Get(UrlPaths.Refresh)
   @HttpCode(HttpStatus.OK)
   public async refresh(@Headers() headers) {
     return this.usersService.refresh(headers);
