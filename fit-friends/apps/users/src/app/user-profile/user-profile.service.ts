@@ -27,6 +27,7 @@ export class UserProfileService {
 
     const userProfileEntity = new UserProfileEntity({
       ...dto,
+      userId
     });
 
     return this.userProfileRepository.create(userProfileEntity);

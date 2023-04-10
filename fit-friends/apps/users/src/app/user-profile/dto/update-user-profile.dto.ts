@@ -18,13 +18,10 @@ export class UpdateUserProfileDto {
   @ApiProperty({
     description: 'Тип тренировки.',
     required: false,
-    example: TRAINING_TYPES[0]
+    example: TRAINING_TYPES
   })
   @IsOptional()
-  @IsIn(TRAINING_TYPES, {
-    message: DtoValidationMessage.ArrayIsNotContains
-  })
-  type?: TrainingType[];
+  types?: TrainingType[];
 
   @ApiProperty({
     description: 'Продолжительность тренировки в минутах.',

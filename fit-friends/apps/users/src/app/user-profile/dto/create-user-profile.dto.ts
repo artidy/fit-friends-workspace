@@ -1,20 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsEnum, IsIn, IsMongoId, Max, Min } from 'class-validator';
+import { IsBoolean, IsEnum, IsIn, Max, Min } from 'class-validator';
 import { Duration, TRAINING_LEVELS, TRAINING_TYPES, TrainingLevel, TrainingType } from '@fit-friends/shared-types';
 import { CaloriesLength, DtoValidationMessage } from '@fit-friends/core';
 
 export class CreateUserProfileDto {
-  @ApiProperty({
-    description: 'Идентификатор пользователя.',
-    required: true,
-    example: '507f1f77bcf86cd799439011'
-  })
-  @IsMongoId(
-    {
-      message: DtoValidationMessage.IsNotMongoId
-  })
-  userId: string;
-
   @ApiProperty({
     description: 'Уровень пользователя, на которого рассчитана тренировка.',
     required: true,
@@ -28,12 +17,9 @@ export class CreateUserProfileDto {
   @ApiProperty({
     description: 'Тип тренировки.',
     required: true,
-    example: TRAINING_TYPES[0]
+    example: TRAINING_TYPES
   })
-  @IsIn(TRAINING_TYPES, {
-    message: DtoValidationMessage.ArrayIsNotContains
-  })
-  type: TrainingType[];
+  types: TrainingType[];
 
   @ApiProperty({
     description: 'Продолжительность тренировки в минутах.',

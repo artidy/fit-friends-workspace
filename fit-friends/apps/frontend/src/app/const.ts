@@ -1,6 +1,3 @@
-import { questionnaireData } from './store/questionnaire-data/questionnaire-data';
-import { Questionnaire } from './types/questionnaire';
-
 enum AppRoute {
   Main = '/',
   SignUp = '/signup',
@@ -84,6 +81,13 @@ const TRAINING_LEVELS = [
   'профессионал',
 ]
 
+const DURATIONS = [
+  '10-30 мин',
+  '30-50 мин',
+  '50-80 мин',
+  'больше 80 мин'
+]
+
 const DEFAULT_REQUEST_TIMEOUT = 5000;
 const TOKEN = 'fit-friends-token';
 const REFRESH_TOKEN = 'fit-friends-refresh-token';
@@ -101,6 +105,7 @@ export {
   TRAINING_TYPES,
   LOCATIONS,
   TRAINING_LEVELS,
+  DURATIONS,
   DEFAULT_REQUEST_TIMEOUT,
   TOKEN,
   REFRESH_TOKEN,

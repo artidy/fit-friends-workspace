@@ -1,5 +1,3 @@
-import { Duration } from '@fit-friends/shared-types';
-
 export type Questionnaire = {
   id: string;
   userId: string;
@@ -8,7 +6,7 @@ export type Questionnaire = {
   certificate?: string;
   merits?: string;
   isPersonalTraining?: boolean;
-  duration?: Duration;
+  duration?: string;
   loseCalories?: number;
   loseCaloriesPerDay?: number;
   isReady?: boolean;
@@ -19,7 +17,7 @@ export type QuestionnaireUserApi = {
   userId: string;
   level: string;
   types: string[];
-  duration: Duration;
+  duration: string;
   loseCalories: number;
   loseCaloriesPerDay: number;
   isReady: boolean;

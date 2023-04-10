@@ -21,10 +21,7 @@ export class UpdateCoachProfileDto {
     example: TRAINING_TYPES
   })
   @IsOptional()
-  @IsIn(TRAINING_TYPES, {
-    message: DtoValidationMessage.ArrayIsNotContains
-  })
-  type?: TrainingType[];
+  types?: TrainingType[];
 
   @ApiProperty({
     description: 'Текст с описанием заслуг тренера.',

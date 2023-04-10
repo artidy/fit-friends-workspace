@@ -20,14 +20,14 @@ class UserProfileModel extends Document implements UserProfile {
 
   @Prop({
     required: true,
-    type: String
+    type: [String]
   })
   public types: TrainingType[];
 
   @Prop({
     required: true,
     type: String,
-    enum: UserRole
+    enum: Duration
   })
   public duration: Duration;
 

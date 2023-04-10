@@ -35,7 +35,7 @@ export class UserProfileRdo {
     example: TRAINING_TYPES
   })
   @Expose()
-  type: TrainingType[];
+  types: TrainingType[];
 
   @ApiProperty({
     description: 'Продолжительность тренировки в минутах.',
