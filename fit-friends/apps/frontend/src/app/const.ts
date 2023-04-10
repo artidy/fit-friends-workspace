@@ -3,6 +3,9 @@ enum AppRoute {
   SignUp = '/signup',
   SignIn = '/signin',
   Questionnaire = '/questionnaire',
+  Account = '/account',
+  Friends = '/friends',
+  Notifications = '/notifications'
 }
 
 enum NameSpace {
@@ -36,7 +39,7 @@ enum UrlPaths {
   Refresh = 'refresh',
   Logout = 'logout',
   QuestionnaireCoach = 'coach-profile',
-  QuestionnaireUser = 'user-profile'
+  QuestionnaireUser = 'user-profile',
 }
 
 enum Message {

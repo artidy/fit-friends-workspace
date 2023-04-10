@@ -3,6 +3,7 @@ import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'ax
 import { dropToken, getActiveToken, getToken, saveTokens } from './token';
 import { DEFAULT_REQUEST_TIMEOUT, REFRESH_TOKEN, TOKEN, UrlPaths } from '../const';
 import { TokenData } from '../types/token';
+import { toast } from 'react-toastify';
 
 const BACKEND_URL = process.env.NX_BACKEND_URL;
 const REQUEST_TIMEOUT = Number(process.env.NX_REQUEST_TIMEOUT) ?? DEFAULT_REQUEST_TIMEOUT;
@@ -30,9 +31,9 @@ export const createAPI = () => {
 
     async (error: AxiosError) => {
       const {response} = error;
-      const originalRequest = error.request.config;
+      const originalRequest = response?.config as InternalAxiosRequestConfig & {_retry: boolean};
 
-      if (response?.status !== 401 || originalRequest?._retry) {
+      if (response?.status !== 401 || originalRequest._retry) {
         return Promise.reject(error);
       }
 
@@ -42,13 +43,11 @@ export const createAPI = () => {
         saveTokens(data.accessToken, data.refreshToken);
 
         originalRequest._retry = true;
-        originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
 
         return api(originalRequest);
       } catch {
-        return Promise.reject(error);
+        return Promise.reject(new Error('Текущая сессия истекла.'));
       }
-
     }
   );
 

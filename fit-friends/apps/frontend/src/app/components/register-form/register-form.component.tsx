@@ -1,13 +1,16 @@
 import { FormEvent, useState } from 'react';
 
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { registerUser } from '../../store/user-data/api-actions';
 import { getFormatTitle } from '../../services/helpers';
-import { LOCATIONS, USER_ROLES, UserGender, UserRole } from '../../const';
+import { AppRoute, LOCATIONS, USER_ROLES, UserGender, UserRole } from '../../const';
 import CustomSelectComponent from '../custom-select/custom-select.component';
+import { getIsAuth } from '../../store/user-data/selectors';
+import { Navigate } from 'react-router-dom';
 
 function RegisterFormComponent() {
   const dispatch = useAppDispatch();
+  const isAuth = useAppSelector(getIsAuth);
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -16,6 +19,10 @@ function RegisterFormComponent() {
   const [role, setRole] = useState<UserRole>(UserRole.User);
   const [location, setLocation] = useState<string>('');
   const [isAgreementConfirmed, setIsAgreementConfirmed] = useState<boolean>(false);
+
+  if (isAuth) {
+    return <Navigate to={AppRoute.Questionnaire} />
+  }
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();

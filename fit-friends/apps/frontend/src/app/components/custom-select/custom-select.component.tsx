@@ -49,10 +49,10 @@ function CustomSelectComponent({title, items, currentItem, setCurrentItem}: Cust
       <button className="custom-select__button" type="button" aria-label="Выберите одну из опций">
         <span className="custom-select__text">{currentItem}</span>
         <span className="custom-select__icon">
-                <svg width="15" height="6" aria-hidden="true">
-                  <use xlinkHref="#arrow-down"></use>
-                </svg>
-              </span>
+          <svg width="15" height="6" aria-hidden="true">
+            <use xlinkHref="#arrow-down"></use>
+          </svg>
+        </span>
       </button>
       <ul className="custom-select__list" role="listbox" onClick={handleChooseOption}>
         {itemsBlock}
