@@ -5,7 +5,7 @@ import { getUser } from '../store/user-data/selectors';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { getQuestionnaire } from '../store/questionnaire-data/selectors';
 import { updateQuestionnaireCoach } from '../store/questionnaire-data/api-actions';
-import { LOCATIONS, TRAINING_LEVELS, TRAINING_TYPES, UserGender } from '../const';
+import { AppRoute, LOCATIONS, TRAINING_LEVELS, TRAINING_TYPES, UserGender } from '../const';
 import CustomSelectComponent from '../components/custom-select/custom-select.component';
 import BtnCheckboxComponent from '../components/btn-checkbox/btn-checkbox.component';
 import InputLoadAvatarComponent from '../components/input-load-avatar/input-load-avatar.component';
@@ -89,7 +89,7 @@ function AccountPage(): JSX.Element {
 
   return (
     <>
-      <HeaderComponent />
+      <HeaderComponent currentPage={AppRoute.Account} />
       <main>
         <section className="inner-page">
           <div className="container">

@@ -5,7 +5,8 @@ enum AppRoute {
   Questionnaire = '/questionnaire',
   Account = '/account',
   Friends = '/friends',
-  Notifications = '/notifications'
+  Notifications = '/notifications',
+  Home = '/home',
 }
 
 enum NameSpace {

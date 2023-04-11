@@ -2,11 +2,19 @@ import { Link } from 'react-router-dom';
 
 import { AppRoute } from '../../const';
 
-function HeaderComponent(): JSX.Element {
+type HeaderComponentProps = {
+  currentPage: string;
+}
+
+function HeaderComponent({currentPage}: HeaderComponentProps): JSX.Element {
   return (
     <header className="header">
       <div className="container">
-        <Link className="header__logo" to={AppRoute.Main} aria-label="Переход на главную">
+        <Link
+          className="main-nav__link"
+          to={AppRoute.Home}
+          aria-label="Переход на главную"
+        >
           <svg width="187" height="70" aria-hidden="true">
             <use xlinkHref="#logo"></use>
           </svg>
@@ -14,28 +22,44 @@ function HeaderComponent(): JSX.Element {
         <nav className="main-nav">
           <ul className="main-nav__list">
             <li className="main-nav__item">
-              <Link className="main-nav__link is-active" to={AppRoute.Main} aria-label="На главную">
+              <Link
+                className={`main-nav__link ${ currentPage === AppRoute.Home ? 'is-active' : ''}`}
+                to={AppRoute.Home}
+                aria-label="На главную"
+              >
                 <svg width="18" height="18" aria-hidden="true">
                   <use xlinkHref="#icon-home"></use>
                 </svg>
               </Link>
             </li>
             <li className="main-nav__item">
-              <Link className="main-nav__link" to={AppRoute.Account} aria-label="Личный кабинет">
+              <Link
+                className={`main-nav__link ${ currentPage === AppRoute.Account ? 'is-active' : ''}`}
+                to={AppRoute.Account}
+                aria-label="Личный кабинет"
+              >
                 <svg width="16" height="18" aria-hidden="true">
                   <use xlinkHref="#icon-user"></use>
                 </svg>
               </Link>
             </li>
             <li className="main-nav__item">
-              <Link className="main-nav__link" to={AppRoute.Friends} aria-label="Друзья">
+              <Link
+                className={`main-nav__link ${ currentPage === AppRoute.Friends ? 'is-active' : ''}`}
+                to={AppRoute.Friends}
+                aria-label="Друзья"
+              >
                 <svg width="22" height="16" aria-hidden="true">
                   <use xlinkHref="#icon-friends"></use>
                 </svg>
               </Link>
             </li>
             <li className="main-nav__item main-nav__item--notifications">
-              <Link className="main-nav__link" to={AppRoute.Notifications} aria-label="Уведомления">
+              <Link
+                className={`main-nav__link ${ currentPage === AppRoute.Notifications ? 'is-active' : ''}`}
+                to={AppRoute.Notifications}
+                aria-label="Уведомления"
+              >
                 <svg width="14" height="18" aria-hidden="true">
                   <use xlinkHref="#icon-notification"></use>
                 </svg>
