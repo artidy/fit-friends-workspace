@@ -1,4 +1,5 @@
 import { UserGender, UserRole } from '../const';
+import { UpdateEntity } from './update-entity';
 
 export type User = {
   id: string;
@@ -26,4 +27,13 @@ export type CreateUser = {
   birthDate?: Date;
   role: UserRole;
   location: string;
+}
+
+export type UpdateUser = UpdateEntity & {
+  name?: string;
+  email?: string;
+  password?: string;
+  gender?: UserGender;
+  birthDate?: Date;
+  location?: string;
 }

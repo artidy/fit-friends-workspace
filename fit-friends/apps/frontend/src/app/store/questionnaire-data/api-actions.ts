@@ -4,7 +4,12 @@ import { isAxiosError } from 'axios';
 
 import { AsyncThunkConfig } from '../../types/thunk-config';
 import { Message, NameSpace, UrlPaths } from '../../const';
-import { Questionnaire, QuestionnaireCoachApi, QuestionnaireUserApi } from '../../types/questionnaire';
+import {
+  Questionnaire,
+  QuestionnaireCoachApi,
+  QuestionnaireUpdate,
+  QuestionnaireUserApi
+} from '../../types/questionnaire';
 import { setQuestionnaireLoading, setQuestionnaire, setQuestionnaireDefault } from './questionnaire-data';
 import { questionnaireAdapt } from '../../services/adapters/questionnaire.adapter';
 
@@ -70,7 +75,7 @@ export const createQuestionnaireCoach = createAsyncThunk<void, Questionnaire, As
   }
 );
 
-export const updateQuestionnaireUser = createAsyncThunk<void, Questionnaire, AsyncThunkConfig>(
+export const updateQuestionnaireUser = createAsyncThunk<void, QuestionnaireUpdate, AsyncThunkConfig>(
   `${NameSpace.Questionnaire}/${UrlPaths.QuestionnaireUser}`,
   async (questionnaire, { dispatch, extra: api }) => {
     dispatch(setQuestionnaireLoading(true));
@@ -90,7 +95,7 @@ export const updateQuestionnaireUser = createAsyncThunk<void, Questionnaire, Asy
   }
 );
 
-export const updateQuestionnaireCoach = createAsyncThunk<void, Questionnaire, AsyncThunkConfig>(
+export const updateQuestionnaireCoach = createAsyncThunk<void, QuestionnaireUpdate, AsyncThunkConfig>(
   `${NameSpace.Questionnaire}/${UrlPaths.QuestionnaireCoach}`,
   async (questionnaire, { dispatch, extra: api }) => {
     dispatch(setQuestionnaireLoading(true));

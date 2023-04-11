@@ -1,35 +1,19 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
-import { getQuestionnaire, isQuestionnaireLoading } from '../../store/questionnaire-data/selectors';
+import { getQuestionnaire } from '../../store/questionnaire-data/selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import {
-  createQuestionnaireCoach,
-  fetchQuestionnaireCoachById,
-  updateQuestionnaireCoach
-} from '../../store/questionnaire-data/api-actions';
-import { getUser } from '../../store/user-data/selectors';
+import { createQuestionnaireCoach, } from '../../store/questionnaire-data/api-actions';
 import { TRAINING_LEVELS, TRAINING_TYPES } from '../../const';
 import CustomToggleRadioComponent from '../custom-toggle-radio/custom-toggle-radio.component';
 import BtnCheckboxComponent from '../btn-checkbox/btn-checkbox.component';
-import LoaderComponent from '../loader/loader.component';
 
 function QuestionnaireCoachComponent(): JSX.Element {
   const questionnaire = useAppSelector(getQuestionnaire);
-  const user = useAppSelector(getUser);
   const dispatch = useAppDispatch();
-  const isLoading = useAppSelector(isQuestionnaireLoading);
   const [level, setLevel] = useState<string>(questionnaire.level);
   const [merits, setMerits] = useState<string>(questionnaire.merits ?? '');
   const [isPersonalTraining, setPersonalTraining] = useState<boolean>(questionnaire.isPersonalTraining ?? false);
   const [types, setTypes] = useState<string[]>(questionnaire.types);
-
-  useEffect(() => {
-    dispatch(fetchQuestionnaireCoachById(user?.id ?? ''));
-  }, []);
-
-  if (isLoading) {
-    return <LoaderComponent />
-  }
 
   const onSubmitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -41,12 +25,6 @@ function QuestionnaireCoachComponent(): JSX.Element {
       merits,
       types,
       userId: questionnaire.userId
-    }
-
-    if (questionnaire.id) {
-      dispatch(updateQuestionnaireCoach(data));
-
-      return;
     }
 
     dispatch(createQuestionnaireCoach(data));

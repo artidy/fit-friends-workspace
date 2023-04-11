@@ -1,8 +1,23 @@
+import { UpdateEntity } from './update-entity';
+
 export type Questionnaire = {
   id: string;
   userId: string;
   level: string;
   types: string[];
+  certificate?: string;
+  merits?: string;
+  isPersonalTraining?: boolean;
+  duration?: string;
+  loseCalories?: number;
+  loseCaloriesPerDay?: number;
+  isReady?: boolean;
+}
+
+export type QuestionnaireUpdate = UpdateEntity & {
+  userId?: string;
+  level?: string;
+  types?: string[];
   certificate?: string;
   merits?: string;
   isPersonalTraining?: boolean;

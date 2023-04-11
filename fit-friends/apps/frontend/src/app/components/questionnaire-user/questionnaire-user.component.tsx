@@ -1,19 +1,15 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getQuestionnaire, isQuestionnaireLoading } from '../../store/questionnaire-data/selectors';
-import { getUser } from '../../store/user-data/selectors';
-import { createQuestionnaireUser, fetchQuestionnaireCoachById, updateQuestionnaireUser } from '../../store/questionnaire-data/api-actions';
-import LoaderComponent from '../loader/loader.component';
+import { getQuestionnaire } from '../../store/questionnaire-data/selectors';
+import { createQuestionnaireUser, } from '../../store/questionnaire-data/api-actions';
 import { DURATIONS, TRAINING_LEVELS, TRAINING_TYPES } from '../../const';
 import CustomToggleRadioComponent from '../custom-toggle-radio/custom-toggle-radio.component';
 import BtnCheckboxComponent from '../btn-checkbox/btn-checkbox.component';
 
 function QuestionnaireUserComponent(): JSX.Element {
   const questionnaire = useAppSelector(getQuestionnaire);
-  const user = useAppSelector(getUser);
   const dispatch = useAppDispatch();
-  const isLoading = useAppSelector(isQuestionnaireLoading);
   const [level, setLevel] = useState<string>(questionnaire.level);
   const [duration, setDuration] = useState<string>(questionnaire.duration ?? '');
   const [loseCalories, setLoseCalories] = useState<number>(questionnaire.loseCalories ?? 0);
@@ -21,16 +17,12 @@ function QuestionnaireUserComponent(): JSX.Element {
   const [isReady, setReady] = useState<boolean>(questionnaire.isReady ?? false);
   const [types, setTypes] = useState<string[]>(questionnaire.types);
 
-  useEffect(() => {
-    dispatch(fetchQuestionnaireCoachById(user?.id ?? ''));
-  }, []);
-
-  if (isLoading) {
-    return <LoaderComponent />
-  }
-
   const onSubmitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+
+    if (questionnaire.id) {
+      return;
+    }
 
     const data = {
       id: '',
@@ -41,12 +33,6 @@ function QuestionnaireUserComponent(): JSX.Element {
       loseCaloriesPerDay,
       isReady,
       userId: questionnaire.userId
-    }
-
-    if (questionnaire.id) {
-      dispatch(updateQuestionnaireUser(data));
-
-      return;
     }
 
     dispatch(createQuestionnaireUser(data));

@@ -1,24 +1,21 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 import HeaderComponent from '../components/header/header.component';
 import { getUser } from '../store/user-data/selectors';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import LoaderComponent from '../components/loader/loader.component';
-import { getQuestionnaire, isQuestionnaireLoading } from '../store/questionnaire-data/selectors';
-import {
-  fetchQuestionnaireCoachById,
-  fetchQuestionnaireUserById,
-  updateQuestionnaireCoach
-} from '../store/questionnaire-data/api-actions';
-import { LOCATIONS, TRAINING_TYPES, UserRole } from '../const';
+import { getQuestionnaire } from '../store/questionnaire-data/selectors';
+import { updateQuestionnaireCoach } from '../store/questionnaire-data/api-actions';
+import { LOCATIONS, TRAINING_LEVELS, TRAINING_TYPES, UserGender } from '../const';
 import CustomSelectComponent from '../components/custom-select/custom-select.component';
 import BtnCheckboxComponent from '../components/btn-checkbox/btn-checkbox.component';
+import InputLoadAvatarComponent from '../components/input-load-avatar/input-load-avatar.component';
+import { updateUser } from '../store/user-data/api-actions';
+import { getUpdateFields } from '../services/helpers';
 
 function AccountPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const user = useAppSelector(getUser);
   const profile = useAppSelector(getQuestionnaire);
-  const isLoading = useAppSelector(isQuestionnaireLoading);
   const [readOnly, setReadOnly] = useState<boolean>(true);
   const [name, setName] = useState<string>(user?.name ?? '');
   const [merits, setMerits] = useState<string>(profile.merits ?? '');
@@ -26,19 +23,10 @@ function AccountPage(): JSX.Element {
   const [types, setTypes] = useState<string[]>(profile.types);
   const [level, setLevel] = useState<string>(profile.level);
   const [location, setLocation] = useState<string>(user?.location ?? '');
+  const [gender, setGender] = useState<string>(user?.gender ?? '');
 
-  useEffect(() => {
-    if (user?.role === UserRole.Coach) {
-      dispatch(fetchQuestionnaireCoachById(user?.id ?? ''));
-    }
-
-    if (user?.role === UserRole.User) {
-      dispatch(fetchQuestionnaireUserById(user?.id ?? ''));
-    }
-  }, []);
-
-  if (!user || isLoading) {
-    return <LoaderComponent />
+  if (!user || !profile) {
+    return <div>Данные не найдены</div>
   }
 
   const onSubmitHandler = (evt: FormEvent<HTMLFormElement>) => {
@@ -50,14 +38,26 @@ function AccountPage(): JSX.Element {
       return;
     }
 
-    dispatch(updateQuestionnaireCoach({
-      id: '',
+    let updateData = getUpdateFields(user, {
+      gender,
+      location,
+      name,
+    });
+
+    if (updateData) {
+      dispatch(updateUser(updateData))
+    }
+
+    updateData = getUpdateFields(profile, {
       isPersonalTraining,
       level,
       merits,
-      types,
-      userId: user.id
-    }));
+      types
+    })
+
+    if (updateData) {
+      dispatch(updateQuestionnaireCoach({...updateData, userId: user.id}));
+    }
 
     setReadOnly(true);
   }
@@ -85,6 +85,8 @@ function AccountPage(): JSX.Element {
     />
   });
 
+  const btnEditText = readOnly ? 'Редактировать' : 'Сохранить';
+
   return (
     <>
       <HeaderComponent />
@@ -95,25 +97,7 @@ function AccountPage(): JSX.Element {
               <h1 className="visually-hidden">Личный кабинет</h1>
               <section className="user-info-edit">
                 <div className="user-info-edit__header">
-                  <div className="input-load-avatar">
-                    <label>
-                      <input
-                        className="visually-hidden"
-                        type="file"
-                        name="user-photo-1"
-                        accept="image/png, image/jpeg"
-                        readOnly={readOnly}
-                      />
-                      <span className="input-load-avatar__avatar">
-                        <img
-                          src={user.avatar}
-                          width="98"
-                          height="98"
-                          alt="user photo"
-                        />
-                      </span>
-                    </label>
-                  </div>
+                  <InputLoadAvatarComponent readOnly={readOnly} avatarUrl={user.avatar} />
                   <div className="user-info-edit__controls">
                     <button className="user-info-edit__control-btn" aria-label="обновить">
                       <svg width="16" height="16" aria-hidden="true">
@@ -131,12 +115,12 @@ function AccountPage(): JSX.Element {
                   <button
                     className="btn-flat btn-flat--underlined user-info-edit__save-button"
                     type="submit"
-                    aria-label="Сохранить"
+                    aria-label={btnEditText}
                   >
                     <svg width="12" height="12" aria-hidden="true">
                       <use xlinkHref="#icon-edit"></use>
                     </svg>
-                    <span>Сохранить</span>
+                    <span>{btnEditText}</span>
                   </button>
                   <div className="user-info-edit__section">
                     <h2 className="user-info-edit__title">Обо мне</h2>
@@ -178,6 +162,7 @@ function AccountPage(): JSX.Element {
                           name="ready-for-training"
                           onChange={(evt) => setPersonalTraining(evt.target.checked)}
                           checked={isPersonalTraining}
+                          readOnly={readOnly}
                         />
                         <span className="custom-toggle__icon">
                           <svg width="9" height="6" aria-hidden="true">
@@ -194,42 +179,30 @@ function AccountPage(): JSX.Element {
                       {checkboxesBlock}
                     </div>
                   </div>
-                  <div className="custom-select user-info-edit__select">
-                    <CustomSelectComponent
-                      title={'Локация'}
-                      currentItem={location}
-                      items={LOCATIONS}
-                      setCurrentItem={setLocation}
-                    />
-                  </div>
-                  <div className="custom-select user-info-edit__select"><span
-                    className="custom-select__label">Пол</span>
-                    <div className="custom-select__placeholder">Женский</div>
-                    <button className="custom-select__button" type="button" aria-label="Выберите одну из опций">
-                      <span className="custom-select__text"></span>
-                      <span className="custom-select__icon">
-                        <svg width="15" height="6" aria-hidden="true">
-                          <use xlinkHref="#arrow-down"></use>
-                        </svg>
-                      </span>
-                    </button>
-                    <ul className="custom-select__list" role="listbox">
-                    </ul>
-                  </div>
-                  <div className="custom-select user-info-edit__select"><span
-                    className="custom-select__label">Уровень</span>
-                    <div className="custom-select__placeholder">Профессионал</div>
-                    <button className="custom-select__button" type="button" aria-label="Выберите одну из опций">
-                      <span className="custom-select__text"></span>
-                      <span className="custom-select__icon">
-                        <svg width="15" height="6" aria-hidden="true">
-                          <use xlinkHref="#arrow-down"></use>
-                        </svg>
-                      </span>
-                    </button>
-                    <ul className="custom-select__list" role="listbox">
-                    </ul>
-                  </div>
+                  <CustomSelectComponent
+                    className="custom-select user-info-edit__select"
+                    title={'Локация'}
+                    currentItem={location}
+                    items={LOCATIONS}
+                    setCurrentItem={setLocation}
+                    readonly={readOnly}
+                  />
+                  <CustomSelectComponent
+                    className="custom-select user-info-edit__select"
+                    title={'Пол'}
+                    currentItem={gender as string}
+                    items={[UserGender.Unknown, UserGender.Male, UserGender.Female]}
+                    setCurrentItem={setGender}
+                    readonly={readOnly}
+                  />
+                  <CustomSelectComponent
+                    className="custom-select user-info-edit__select"
+                    title={'Уровень'}
+                    currentItem={level}
+                    items={TRAINING_LEVELS}
+                    setCurrentItem={setLevel}
+                    readonly={readOnly}
+                  />
                 </form>
               </section>
               <div className="inner-page__content">

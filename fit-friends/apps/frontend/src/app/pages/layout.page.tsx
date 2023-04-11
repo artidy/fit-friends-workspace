@@ -1,6 +1,32 @@
 import { Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
+
+import { UserRole } from '../const';
+import { fetchQuestionnaireCoachById, fetchQuestionnaireUserById } from '../store/questionnaire-data/api-actions';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { getUser } from '../store/user-data/selectors';
+import LoaderComponent from '../components/loader/loader.component';
+import { isQuestionnaireLoading } from '../store/questionnaire-data/selectors';
 
 function LayoutPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(getUser);
+  const isProfileLoading = useAppSelector(isQuestionnaireLoading);
+
+  useEffect(() => {
+    if (user?.role === UserRole.Coach) {
+      dispatch(fetchQuestionnaireCoachById(user?.id ?? ''));
+    }
+
+    if (user?.role === UserRole.User) {
+      dispatch(fetchQuestionnaireUserById(user?.id ?? ''));
+    }
+  }, [user]);
+
+  if (isProfileLoading) {
+    return <LoaderComponent />
+  }
+
   return (
     <>
       <div className="visually-hidden">

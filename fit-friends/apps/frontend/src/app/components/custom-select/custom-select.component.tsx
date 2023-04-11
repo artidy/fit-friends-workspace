@@ -1,19 +1,50 @@
-import { memo, MouseEvent, MutableRefObject, useRef } from 'react';
+import { memo, MouseEvent, MutableRefObject, useEffect, useRef } from 'react';
 
 type CustomSelectComponentProps = {
   title: string;
   currentItem: string;
+  className?: string;
   items: string[];
   setCurrentItem: Function;
+  readonly?: boolean;
 }
 
-function CustomSelectComponent({title, items, currentItem, setCurrentItem}: CustomSelectComponentProps): JSX.Element {
+function CustomSelectComponent({title, items, currentItem, className = '', setCurrentItem, readonly = false}: CustomSelectComponentProps): JSX.Element {
   const customSelect: MutableRefObject<HTMLDivElement|null> = useRef(null);
 
   const handleSelect = () => {
+    if (readonly) {
+      return;
+    }
+
     customSelect.current?.classList.toggle('is-open');
-    document.body.classList.toggle('scroll-lock');
   };
+
+  useEffect(() => {
+    const currentCustomSelect = customSelect.current;
+
+    if (!currentCustomSelect) {
+      return;
+    }
+
+    currentCustomSelect.classList.remove(
+      'custom-select--not-selected',
+      'not-empty',
+      'custom-select--readonly'
+    );
+
+    if (readonly) {
+      currentCustomSelect.classList.add('custom-select--readonly');
+    }
+
+    if (currentItem) {
+      currentCustomSelect.classList.add('not-empty');
+
+      return;
+    }
+
+    currentCustomSelect.classList.add('custom-select--not-selected');
+  }, [currentItem, readonly])
 
   const handleChooseOption = (evt: MouseEvent<HTMLUListElement>) => {
     const option = evt.target as HTMLElement;
@@ -25,16 +56,6 @@ function CustomSelectComponent({title, items, currentItem, setCurrentItem}: Cust
     const value = option.getAttribute('data-value') ?? '';
 
     setCurrentItem(value);
-
-    if (value) {
-      customSelect.current?.classList.remove('custom-select--not-selected');
-      customSelect.current?.classList.add('not-empty');
-
-      return;
-    }
-
-    customSelect.current?.classList.add('custom-select--not-selected');
-    customSelect.current?.classList.remove('not-empty');
   };
 
   const itemsBlock = items.map((value) => {
@@ -44,7 +65,7 @@ function CustomSelectComponent({title, items, currentItem, setCurrentItem}: Cust
   })
 
   return (
-    <div ref={customSelect} className="custom-select custom-select--not-selected" onClick={handleSelect}>
+    <div ref={customSelect} className={`custom-select ${className} custom-select--not-selected`} onClick={handleSelect}>
       <span className="custom-select__label">{title}</span>
       <button className="custom-select__button" type="button" aria-label="Выберите одну из опций">
         <span className="custom-select__text">{currentItem}</span>

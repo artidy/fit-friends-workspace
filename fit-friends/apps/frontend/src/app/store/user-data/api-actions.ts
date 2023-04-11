@@ -6,7 +6,7 @@ import { AsyncThunkConfig } from '../../types/thunk-config';
 import { AuthorizationStatus, Message, NameSpace, TOKEN, UrlPaths } from '../../const';
 import { getToken, saveTokens } from '../../services/token';
 import { setAuthorizationStatus, setUser } from './user-data';
-import { CreateUser, LoginUser, User } from '../../types/user';
+import { CreateUser, LoginUser, UpdateUser, User } from '../../types/user';
 import { TokenData } from '../../types/token';
 
 export const verify = createAsyncThunk<void, undefined, AsyncThunkConfig>(
@@ -63,6 +63,25 @@ export const registerUser = createAsyncThunk<void, CreateUser, AsyncThunkConfig>
     try {
       await api.post<User>(`${UrlPaths.Users}/${UrlPaths.Register}`, userData);
       dispatch(login({email: userData.email, password: userData.password}));
+    } catch(e) {
+      let message = Message.UnknownMessage;
+
+      if (isAxiosError(e)) {
+        message = e.response?.data.message;
+      }
+
+      toast.error(message);
+    }
+  }
+);
+
+export const updateUser = createAsyncThunk<void, UpdateUser, AsyncThunkConfig>(
+  `${NameSpace.User}/${UrlPaths.Users}`,
+  async (userData, { dispatch, extra: api }) => {
+
+    try {
+      const {data} = await api.patch<User>(`${UrlPaths.Users}/${userData.id}`, userData);
+      dispatch(setUser(data));
     } catch(e) {
       let message = Message.UnknownMessage;
 

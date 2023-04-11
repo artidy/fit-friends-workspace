@@ -57,6 +57,20 @@ export class UsersService {
     return data;
   }
 
+  public async update(userId, updateData, headers) {
+    const { data } = await firstValueFrom(
+      this.httpService.patch(
+        `${this.serviceAddress}/${UrlPaths.Users}/${userId}`,
+        updateData,
+        {headers}
+      ).pipe(catchError((e) => {
+        throw new HttpException(e.response.data, e.response.status);
+      }))
+    )
+
+    return data;
+  }
+
   public async refresh(headers){
     const { data } = await firstValueFrom(
       this.httpService.get(

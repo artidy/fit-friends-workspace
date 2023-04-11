@@ -1,6 +1,6 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Headers } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Headers, Param, Patch } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { UrlPaths } from '@fit-friends/core';
+import { MongoidValidationPipe, UrlPaths } from '@fit-friends/core';
 import { LoginUser } from '@fit-friends/shared-types';
 
 import { UsersService } from './users.service';
@@ -26,6 +26,15 @@ export class UsersController {
   @HttpCode(HttpStatus.OK)
   public async login(@Body() user: LoginUser, @Headers() headers) {
     return this.usersService.login(user, headers);
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK, description: 'Вы успешно обновили данные'
+  })
+  @Patch(':userId')
+  @HttpCode(HttpStatus.OK)
+  public async update(@Param('userId', MongoidValidationPipe) userId: string, @Body() updateData, @Headers() headers) {
+    return this.usersService.update(userId, updateData, headers);
   }
 
   @ApiResponse({
