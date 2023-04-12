@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Training } from '../../types/training';
+import { AppRoute } from '../../const';
 
 type TrainingItemComponentProps = {
   training: Training;
@@ -52,7 +53,7 @@ function TrainingItemComponent({training}: TrainingItemComponentProps): JSX.Elem
           </p>
         </div>
         <div className="thumbnail-training__button-wrapper">
-          <Link className="btn btn--small thumbnail-training__button-catalog" to="#">Подробнее</Link>
+          <Link className="btn btn--small thumbnail-training__button-catalog" to={`${AppRoute.Trainings}/${training.id}`}>Подробнее</Link>
           <Link className="btn btn--small btn--outlined thumbnail-training__button-catalog" to="#">Отзывы</Link>
         </div>
       </div>

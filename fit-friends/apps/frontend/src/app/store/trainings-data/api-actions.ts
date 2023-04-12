@@ -20,7 +20,7 @@ export const fetchTrainings = createAsyncThunk<void, undefined, AsyncThunkConfig
   }
 );
 
-export const getTrainingById = createAsyncThunk<void, number, AsyncThunkConfig>(
+export const getTrainingById = createAsyncThunk<void, string, AsyncThunkConfig>(
   `${NameSpace.Trainings}/${UrlPaths.Trainings}`,
   async (trainingId, { dispatch, extra: api }) => {
     dispatch(setTrainingsLoading(true));
@@ -70,7 +70,7 @@ export const updateTraining = createAsyncThunk<void, UpdateTraining, AsyncThunkC
   }
 );
 
-export const deleteTraining = createAsyncThunk<void, number, AsyncThunkConfig>(
+export const deleteTraining = createAsyncThunk<void, string, AsyncThunkConfig>(
   `${NameSpace.Trainings}/${UrlPaths.Trainings}`,
   async (trainingId, { dispatch, extra: api }) => {
     dispatch(setTrainingsLoading(true));
