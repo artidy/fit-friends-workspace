@@ -7,6 +7,7 @@ import { validateEnvironments } from './env.validation';
 import { UsersModule } from './users/users.module';
 import { QuestionnaireCoachModule } from './questionnaire-coach/questionnaire-coach.module';
 import { QuestionnaireUserModule } from './questionnaire-user/questionnaire-user.module';
+import { TrainingsModule } from './trainings/trainings.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { QuestionnaireUserModule } from './questionnaire-user/questionnaire-user
     UsersModule,
     QuestionnaireCoachModule,
     QuestionnaireUserModule,
+    TrainingsModule,
   ]
 })
 export class AppModule {}

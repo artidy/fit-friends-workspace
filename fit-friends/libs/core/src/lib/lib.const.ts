@@ -105,6 +105,7 @@ enum UrlPaths {
   Logout = 'logout',
   QuestionnaireCoach = 'coach-profile',
   QuestionnaireUser = 'user-profile',
+  Trainings = 'trainings'
 }
 
 const MONGO_CONFIG_TOKEN = 'mongodb';

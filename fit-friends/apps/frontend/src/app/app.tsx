@@ -8,6 +8,7 @@ import SignInPage from './pages/sign-in.page';
 import QuestionnairePage from './pages/questionnaire.page';
 import AccountPage from './pages/account.page';
 import HomePage from './pages/home.page';
+import TrainingCatalogPage from './pages/training-catalog.page';
 
 export function App(): JSX.Element {
   return (
@@ -19,6 +20,7 @@ export function App(): JSX.Element {
         <Route path={AppRoute.Questionnaire} element={<QuestionnairePage />} />
         <Route path={AppRoute.Home} element={<HomePage />} />
         <Route path={AppRoute.Account} element={<AccountPage />} />
+        <Route path={AppRoute.Trainings} element={<TrainingCatalogPage />} />
       </Route>
     </Routes>
   );

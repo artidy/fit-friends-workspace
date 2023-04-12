@@ -1,6 +1,6 @@
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
-import { Auth, fillObject, User } from '@fit-friends/core';
+import { Auth, fillObject, UrlPaths, User } from '@fit-friends/core';
 import { UserRequest, UserRole } from '@fit-friends/shared-types';
 
 import { TrainingService } from './training.service';
@@ -8,8 +8,8 @@ import { TrainingRdo } from './rdo/training.rdo';
 import { CreateTrainingDto } from './dto/create-training.dto';
 import { UpdateTrainingDto } from './dto/update-training.dto';
 
-@ApiTags('trainings')
-@Controller('trainings')
+@ApiTags(UrlPaths.Trainings)
+@Controller(UrlPaths.Trainings)
 export class TrainingController {
   constructor(private readonly trainingService: TrainingService) {}
 

@@ -7,11 +7,13 @@ enum AppRoute {
   Friends = '/friends',
   Notifications = '/notifications',
   Home = '/home',
+  Trainings = '/trainings'
 }
 
 enum NameSpace {
   User = 'USER',
   Questionnaire = 'QUESTIONNAIRE',
+  Trainings = 'TRAININGS'
 }
 
 enum AuthorizationStatus {
@@ -41,6 +43,7 @@ enum UrlPaths {
   Logout = 'logout',
   QuestionnaireCoach = 'coach-profile',
   QuestionnaireUser = 'user-profile',
+  Trainings = 'trainings'
 }
 
 enum Message {
@@ -69,6 +72,12 @@ const TRAINING_TYPES = [
   'кроссфит',
   'аэробика',
   'пилатес',
+]
+
+const PRICE_TYPES = [
+  'Дешевле',
+  'Дороже',
+  'Бесплатные',
 ]
 
 const LOCATIONS = [
@@ -107,6 +116,7 @@ export {
   Message,
   USER_ROLES,
   TRAINING_TYPES,
+  PRICE_TYPES,
   LOCATIONS,
   TRAINING_LEVELS,
   DURATIONS,

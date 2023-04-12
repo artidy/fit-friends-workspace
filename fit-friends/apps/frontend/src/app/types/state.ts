@@ -2,6 +2,7 @@ import { AuthorizationStatus } from '../const';
 import { store } from '../store';
 import { User } from './user';
 import { Questionnaire } from './questionnaire';
+import { Training } from './training';
 
 export type UserState = {
   authorizationStatus: AuthorizationStatus;
@@ -10,6 +11,12 @@ export type UserState = {
 
 export type QuestionnaireState = {
   questionnaire: Questionnaire;
+  isLoading: boolean;
+};
+
+export type TrainingsState = {
+  trainings: Training[];
+  currentTraining: Training | null;
   isLoading: boolean;
 };
 

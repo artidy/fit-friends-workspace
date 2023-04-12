@@ -1,11 +1,20 @@
-import { memo } from 'react';
+import { memo, MouseEvent } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 function PopularTrainingsComponents(): JSX.Element {
+  const navigate = useNavigate();
+
+  const onClickAllTrainingsHandler = (evt: MouseEvent<HTMLButtonElement>) => {
+    navigate(AppRoute.Trainings);
+  }
+
   return (
     <div className="popular-trainings__wrapper">
       <div className="popular-trainings__title-wrapper">
         <h2 className="popular-trainings__title">Популярные тренировки</h2>
-        <button className="btn-flat popular-trainings__button" type="button"><span>Смотреть все</span>
+        <button className="btn-flat popular-trainings__button" type="button" onClick={onClickAllTrainingsHandler}>
+          <span>Смотреть все</span>
           <svg width="14" height="10" aria-hidden="true">
             <use xlinkHref="#arrow-right"></use>
           </svg>
@@ -203,9 +212,8 @@ function PopularTrainingsComponents(): JSX.Element {
                   новичков. Плавное погружение в&nbsp;стретчинг и&nbsp;умеренная нагрузка.</p>
               </div>
               <div className="thumbnail-training__button-wrapper">
-                <a className="btn btn--small thumbnail-training__button-catalog" href="#">Подробнее</a>
-                <a className="btn btn--small btn--outlined thumbnail-training__button-catalog"
-                   href="#">Отзывы</a>
+                <Link className="btn btn--small thumbnail-training__button-catalog" to="#">Подробнее</Link>
+                <Link className="btn btn--small btn--outlined thumbnail-training__button-catalog" to="#">Отзывы</Link>
               </div>
             </div>
           </div>

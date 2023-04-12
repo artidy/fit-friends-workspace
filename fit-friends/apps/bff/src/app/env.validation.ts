@@ -7,6 +7,11 @@ class EnvironmentsConfig {
     message: EnvValidationMessage.URLServiceNotRequired
   })
   public USERS_URL: string;
+
+  @IsString({
+    message: EnvValidationMessage.URLServiceNotRequired
+  })
+  public GYM_URL: string;
 }
 
 export function validateEnvironments(config: Record<string, unknown>) {
