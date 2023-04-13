@@ -10,6 +10,7 @@ import AccountPage from './pages/account.page';
 import HomePage from './pages/home.page';
 import TrainingCatalogPage from './pages/training-catalog.page';
 import TrainingCardPage from './pages/training-card.page';
+import UsersCatalogPage from './pages/users-catalog.page';
 
 export function App(): JSX.Element {
   return (
@@ -23,6 +24,8 @@ export function App(): JSX.Element {
         <Route path={AppRoute.Account} element={<AccountPage />} />
         <Route path={AppRoute.Trainings} element={<TrainingCatalogPage />} />
         <Route path={`${AppRoute.Trainings}/:id`} element={<TrainingCardPage />} />
+        <Route path={AppRoute.Users} element={<UsersCatalogPage />} />
+        <Route path={`${AppRoute.Users}/:id`} element={<UsersCatalogPage />} />
       </Route>
     </Routes>
   );

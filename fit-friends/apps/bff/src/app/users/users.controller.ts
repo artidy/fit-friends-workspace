@@ -13,10 +13,28 @@ export class UsersController {
   @ApiResponse({
     status: HttpStatus.OK, description: 'Вы успешно получили данные'
   })
-  @Get()
+  @Get('auth/verify')
   @HttpCode(HttpStatus.OK)
   public async verify(@Headers() headers) {
     return this.usersService.verify(headers);
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK, description: 'Вы успешно получили данные'
+  })
+  @Get('')
+  @HttpCode(HttpStatus.OK)
+  public async index(@Headers() headers) {
+    return this.usersService.getAll(headers);
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK, description: 'Вы успешно получили данные'
+  })
+  @Get(':id')
+  @HttpCode(HttpStatus.OK)
+  public async getById(@Param('id') id: string, @Headers() headers) {
+    return this.usersService.getById(id, headers);
   }
 
   @ApiResponse({

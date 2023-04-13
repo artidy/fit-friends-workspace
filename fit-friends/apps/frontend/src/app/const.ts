@@ -7,7 +7,8 @@ enum AppRoute {
   Friends = '/friends',
   Notifications = '/notifications',
   Home = '/home',
-  Trainings = '/trainings'
+  Trainings = '/trainings',
+  Users = 'users',
 }
 
 enum NameSpace {
@@ -94,6 +95,11 @@ const TRAINING_LEVELS = [
   'профессионал',
 ]
 
+const USER_TYPES = [
+  'Тренеры',
+  'Пользователи',
+]
+
 const DURATIONS = [
   '10-30 мин',
   '30-50 мин',
@@ -119,6 +125,7 @@ export {
   PRICE_TYPES,
   LOCATIONS,
   TRAINING_LEVELS,
+  USER_TYPES,
   DURATIONS,
   DEFAULT_REQUEST_TIMEOUT,
   TOKEN,

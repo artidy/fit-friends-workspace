@@ -5,9 +5,10 @@ import { isAxiosError } from 'axios';
 import { AsyncThunkConfig } from '../../types/thunk-config';
 import { AuthorizationStatus, Message, NameSpace, TOKEN, UrlPaths } from '../../const';
 import { getToken, saveTokens } from '../../services/token';
-import { setAuthorizationStatus, setUser } from './user-data';
-import { CreateUser, LoginUser, UpdateUser, User } from '../../types/user';
+import { setAuthorizationStatus, setCurrentUser, setUser, setUsers, setUsersLoading } from './user-data';
+import { CreateUser, LoginUser, UpdateUser, User, UserApi } from '../../types/user';
 import { TokenData } from '../../types/token';
+import { userAdapt, usersAdapt } from '../../services/adapters/users.adapter';
 
 export const verify = createAsyncThunk<void, undefined, AsyncThunkConfig>(
   `${NameSpace.User}/${UrlPaths.Verify}`,
@@ -16,9 +17,9 @@ export const verify = createAsyncThunk<void, undefined, AsyncThunkConfig>(
       const token = getToken(TOKEN);
 
       if (token) {
-        const { data } = await api.get<User>(UrlPaths.Users);
+        const { data } = await api.get<UserApi>(`${UrlPaths.Users}/auth/verify`);
         dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
-        dispatch(setUser(data));
+        dispatch(setUser(userAdapt(data)));
 
         return;
       }
@@ -61,7 +62,7 @@ export const registerUser = createAsyncThunk<void, CreateUser, AsyncThunkConfig>
   async (userData, { dispatch, extra: api }) => {
 
     try {
-      await api.post<User>(`${UrlPaths.Users}/${UrlPaths.Register}`, userData);
+      await api.post<UserApi>(`${UrlPaths.Users}/${UrlPaths.Register}`, userData);
       dispatch(login({email: userData.email, password: userData.password}));
     } catch(e) {
       let message = Message.UnknownMessage;
@@ -80,8 +81,8 @@ export const updateUser = createAsyncThunk<void, UpdateUser, AsyncThunkConfig>(
   async (userData, { dispatch, extra: api }) => {
 
     try {
-      const {data} = await api.patch<User>(`${UrlPaths.Users}/${userData.id}`, userData);
-      dispatch(setUser(data));
+      const {data} = await api.patch<UserApi>(`${UrlPaths.Users}/${userData.id}`, userData);
+      dispatch(setUser(userAdapt(data)));
     } catch(e) {
       let message = Message.UnknownMessage;
 
@@ -91,5 +92,43 @@ export const updateUser = createAsyncThunk<void, UpdateUser, AsyncThunkConfig>(
 
       toast.error(message);
     }
+  }
+);
+
+export const getApiUsers = createAsyncThunk<void, undefined, AsyncThunkConfig>(
+  `${NameSpace.User}/${UrlPaths.Users}`,
+  async (_arg, { dispatch, extra: api }) => {
+    try {
+      dispatch(setUsersLoading(true));
+      const {data} = await api.get<UserApi[]>(`${UrlPaths.Users}`);
+      dispatch(setUsers(usersAdapt(data)));
+    } catch(e) {
+      let message = Message.UnknownMessage;
+
+      if (isAxiosError(e)) {
+        message = e.response?.data.message;
+      }
+      toast.error(message);
+    }
+    dispatch(setUsersLoading(false));
+  }
+);
+
+export const getApiCurrentUser = createAsyncThunk<void, string, AsyncThunkConfig>(
+  `${NameSpace.User}/${UrlPaths.Users}`,
+  async (userId, { dispatch, extra: api }) => {
+    try {
+      dispatch(setUsersLoading(true));
+      const {data} = await api.get<UserApi>(`${UrlPaths.Users}/${userId}`);
+      dispatch(setCurrentUser(userAdapt(data)));
+    } catch(e) {
+      let message = Message.UnknownMessage;
+
+      if (isAxiosError(e)) {
+        message = e.response?.data.message;
+      }
+      toast.error(message);
+    }
+    dispatch(setUsersLoading(false));
   }
 );

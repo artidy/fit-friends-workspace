@@ -6,6 +6,9 @@ import { AuthorizationStatus, NameSpace } from '../../const';
 const initialState: UserState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   user: null,
+  users: [],
+  currentUser: null,
+  isLoading: false,
 };
 
 export const userData = createSlice({
@@ -18,10 +21,22 @@ export const userData = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
-    setToDefault: (state) => {
-      state = initialState;
+    setUsers: (state, action) => {
+      state.users = action.payload;
     },
+    setCurrentUser: (state, action) => {
+      state.currentUser = action.payload;
+    },
+    setUsersLoading: (state, action) => {
+      state.isLoading = action.payload;
+    }
   },
 });
 
-export const { setAuthorizationStatus, setUser, setToDefault } = userData.actions;
+export const {
+  setAuthorizationStatus,
+  setUser,
+  setUsers,
+  setCurrentUser,
+  setUsersLoading
+} = userData.actions;

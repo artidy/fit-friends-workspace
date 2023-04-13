@@ -7,6 +7,9 @@ import { Training } from './training';
 export type UserState = {
   authorizationStatus: AuthorizationStatus;
   user: User | null;
+  users: User[];
+  currentUser: User | null;
+  isLoading: boolean;
 };
 
 export type QuestionnaireState = {
