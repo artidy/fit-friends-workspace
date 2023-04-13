@@ -11,6 +11,7 @@ import HomePage from './pages/home.page';
 import TrainingCatalogPage from './pages/training-catalog.page';
 import TrainingCardPage from './pages/training-card.page';
 import UsersCatalogPage from './pages/users-catalog.page';
+import UserCardPage from './pages/user-card.page';
 
 export function App(): JSX.Element {
   return (
@@ -25,7 +26,7 @@ export function App(): JSX.Element {
         <Route path={AppRoute.Trainings} element={<TrainingCatalogPage />} />
         <Route path={`${AppRoute.Trainings}/:id`} element={<TrainingCardPage />} />
         <Route path={AppRoute.Users} element={<UsersCatalogPage />} />
-        <Route path={`${AppRoute.Users}/:id`} element={<UsersCatalogPage />} />
+        <Route path={`${AppRoute.Users}/:id`} element={<UserCardPage />} />
       </Route>
     </Routes>
   );

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 type UsersCatalogItemProps = {
   id: string;
@@ -45,7 +46,7 @@ function UsersCatalogItem({id, name, location}: UsersCatalogItemProps): JSX.Elem
           </div>
         </li>
       </ul>
-      <Link className="btn btn--medium thumbnail-user__button" to="#">Подробнее</Link>
+      <Link className="btn btn--medium thumbnail-user__button" to={id}>Подробнее</Link>
     </div>
   )
 }
