@@ -36,17 +36,13 @@ export function auth (httpService: HttpService, configService: ConfigService) {
             throw new HttpException(e.response.data, e.response.status);
           }
 
-          throw new Error('Неизвестная ошибка');
+          throw new HttpException('Неизвестная ошибка', 500);
         }))
       )
 
       req.user = user;
     } catch(e) {
-      if (e && axios.isAxiosError(e) && e.response) {
-        throw new HttpException(e.response.data, e.response.status);
-      }
-
-      throw new Error('Неизвестная ошибка');
+      return Promise.reject(new HttpException(e.response.data, e.response.status));
     }
 
     next();
