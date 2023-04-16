@@ -1,14 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { Logger, ValidationPipe } from '@nestjs/common';
-import { BootstrapFunction, DEFAULT_PORT, HttpExceptionFilter } from '@fit-friends/core';
+import { BootstrapFunction, DEFAULT_PORT, GLOBAL_PREFIX, HttpExceptionFilter } from '@fit-friends/core';
 
 export async function bootstrap(module, serviceName: string, ...cbs: BootstrapFunction[]) {
   const app = await NestFactory.create(module);
-  const globalPrefix = 'api';
   const port = process.env.PORT || DEFAULT_PORT;
 
-  app.setGlobalPrefix(globalPrefix);
+  app.setGlobalPrefix(GLOBAL_PREFIX);
   app.enableCors();
 
   const config = new DocumentBuilder()
@@ -30,6 +29,6 @@ export async function bootstrap(module, serviceName: string, ...cbs: BootstrapFu
   await app.listen(port);
 
   Logger.log(
-    `🚀 Application ${serviceName} is running on: http://localhost:${port}/${globalPrefix}`
+    `🚀 Application ${serviceName} is running on: http://localhost:${port}/${GLOBAL_PREFIX}`
   );
 }

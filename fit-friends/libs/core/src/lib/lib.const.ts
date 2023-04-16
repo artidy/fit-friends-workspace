@@ -92,7 +92,8 @@ enum EntityType {
   Friend = 'Друг',
   UserProfile = 'Профиль пользователя',
   CoachProfile = 'Профиль тренера',
-  Subscriber = 'Подписчик'
+  Subscriber = 'Подписчик',
+  Avatar = 'аватар'
 }
 
 enum UrlPaths {
@@ -105,9 +106,18 @@ enum UrlPaths {
   Logout = 'logout',
   QuestionnaireCoach = 'coach-profile',
   QuestionnaireUser = 'user-profile',
-  Trainings = 'trainings'
+  Trainings = 'trainings',
+  Avatars = 'avatars'
 }
 
+enum AvatarSettings {
+  Directory = '/img/avatars',
+  FieldName = 'avatar',
+  MaxSize = 500000,
+}
+
+const AVATAR_TYPES = /(jpg|jpeg|png)$/;
+const ASSETS_DIRECTORY = 'assets';
 const MONGO_CONFIG_TOKEN = 'mongodb';
 const DEFAULT_PORT = 3333;
 const DEFAULT_MONGO_PORT = '27017';
@@ -126,6 +136,9 @@ export {
   CountLength,
   EntityType,
   UrlPaths,
+  AvatarSettings,
+  AVATAR_TYPES,
+  ASSETS_DIRECTORY,
   MONGO_CONFIG_TOKEN,
   DEFAULT_PORT,
   DEFAULT_MONGO_PORT,
