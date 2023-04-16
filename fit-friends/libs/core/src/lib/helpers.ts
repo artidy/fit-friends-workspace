@@ -2,8 +2,10 @@ import { ConfigService } from '@nestjs/config';
 import { RmqOptions, Transport } from '@nestjs/microservices';
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { isObject } from 'class-validator';
-import { MongoConnection } from '@fit-friends/core';
+import { auth, MongoConnection } from '@fit-friends/core';
 import { CommandEvent } from '@fit-friends/shared-types';
+import { INestApplication } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 
 function getMongoConnectionString({username, password, host, port, databaseName, authDatabase}: MongoConnection): string {
   return `mongodb://${username}:${password}@${host}:${port}/${databaseName}?authSource=${authDatabase}`;
@@ -51,10 +53,26 @@ function createEvent(commandEvent: CommandEvent) {
   return { cmd: commandEvent };
 }
 
+function checkAuth(app: INestApplication) {
+  const httpService = app.get<HttpService>(HttpService);
+  const configService = app.get<ConfigService>(ConfigService);
+
+  app.use(auth(httpService, configService));
+}
+
+async function startMicroservices(app: INestApplication) {
+  const configService = app.get<ConfigService>(ConfigService);
+  app.connectMicroservice(getRabbitmqConfig(configService));
+
+  await app.startAllMicroservices();
+}
+
 export {
   getMongoConnectionString,
   fillEntity,
   fillObject,
   getRabbitmqConfig,
   createEvent,
+  checkAuth,
+  startMicroservices,
 }
