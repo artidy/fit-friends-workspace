@@ -3,6 +3,7 @@ import { store } from '../store';
 import { User } from './user';
 import { Questionnaire } from './questionnaire';
 import { Training } from './training';
+import { Gym } from './gym';
 
 export type UserState = {
   authorizationStatus: AuthorizationStatus;
@@ -20,6 +21,12 @@ export type QuestionnaireState = {
 export type TrainingsState = {
   trainings: Training[];
   currentTraining: Training | null;
+  isLoading: boolean;
+};
+
+export type GymsState = {
+  gyms: Gym[];
+  currentGym: Gym | null;
   isLoading: boolean;
 };
 

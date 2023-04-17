@@ -1,12 +1,12 @@
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Controller, Get, HttpStatus, Param } from '@nestjs/common';
-import { fillObject } from '@fit-friends/core';
+import { fillObject, UrlPaths } from '@fit-friends/core';
 
 import { GymService } from './gym.service';
 import { GymRdo } from './rdo/gym.rdo';
 
-@ApiTags('gyms')
-@Controller('gyms')
+@ApiTags(UrlPaths.Gyms)
+@Controller(UrlPaths.Gyms)
 export class GymController {
   constructor(private readonly gymService: GymService) {}
 

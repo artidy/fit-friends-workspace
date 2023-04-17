@@ -8,13 +8,15 @@ enum AppRoute {
   Notifications = '/notifications',
   Home = '/home',
   Trainings = '/trainings',
-  Users = 'users',
+  Users = '/users',
+  Gyms = '/gyms',
 }
 
 enum NameSpace {
   User = 'USER',
   Questionnaire = 'QUESTIONNAIRE',
-  Trainings = 'TRAININGS'
+  Trainings = 'TRAININGS',
+  Gyms = 'GYMS',
 }
 
 enum AuthorizationStatus {
@@ -44,7 +46,8 @@ enum UrlPaths {
   Logout = 'logout',
   QuestionnaireCoach = 'coach-profile',
   QuestionnaireUser = 'user-profile',
-  Trainings = 'trainings'
+  Trainings = 'trainings',
+  Gyms = 'gyms',
 }
 
 enum Message {
@@ -107,6 +110,13 @@ const DURATIONS = [
   'больше 80 мин'
 ]
 
+const FEATURES = [
+  'бассейн',
+  'бесплатная парковка',
+  'детская комната',
+  'массаж',
+]
+
 const DEFAULT_REQUEST_TIMEOUT = 5000;
 const TOKEN = 'fit-friends-token';
 const REFRESH_TOKEN = 'fit-friends-refresh-token';
@@ -127,6 +137,7 @@ export {
   TRAINING_LEVELS,
   USER_TYPES,
   DURATIONS,
+  FEATURES,
   DEFAULT_REQUEST_TIMEOUT,
   TOKEN,
   REFRESH_TOKEN,

@@ -1,4 +1,6 @@
 import { memo } from 'react';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 function OffersComponent(): JSX.Element {
   return (
@@ -137,8 +139,8 @@ function OffersComponent(): JSX.Element {
           </div>
         </div>
         <div className="thumbnail-spec-gym__button-wrapper">
-          <a className="btn btn--small thumbnail-spec-gym__button" href="#">Подробнее</a>
-          <a className="btn btn--small btn--outlined thumbnail-spec-gym__button" href="#">Все залы</a>
+          <Link className="btn btn--small thumbnail-spec-gym__button" to="#">Подробнее</Link>
+          <Link className="btn btn--small btn--outlined thumbnail-spec-gym__button" to={AppRoute.Gyms}>Все залы</Link>
         </div>
       </div>
     </div>

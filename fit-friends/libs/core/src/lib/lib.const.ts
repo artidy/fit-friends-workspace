@@ -107,7 +107,8 @@ enum UrlPaths {
   QuestionnaireCoach = 'coach-profile',
   QuestionnaireUser = 'user-profile',
   Trainings = 'trainings',
-  Avatars = 'avatars'
+  Avatars = 'avatars',
+  Gyms = 'gyms',
 }
 
 enum AvatarSettings {
