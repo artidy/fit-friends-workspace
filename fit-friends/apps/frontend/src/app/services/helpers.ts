@@ -1,4 +1,6 @@
 import { UpdateEntity } from '../types/update-entity';
+import { NavigateFunction } from 'react-router/dist/lib/hooks';
+import { AppRoute } from '../const';
 
 function getFormatTitle(title: string): string {
   return `${title[0].toUpperCase()}${title.slice(1)}`;
@@ -35,5 +37,5 @@ function toggleArrayValue(value: string, array: string[]): string[] {
 export {
   getFormatTitle,
   getUpdateFields,
-  toggleArrayValue
+  toggleArrayValue,
 }
