@@ -3,7 +3,7 @@ import axios from 'axios';
 import { HttpService } from '@nestjs/axios';
 import { catchError, firstValueFrom } from 'rxjs';
 import { ConfigService } from '@nestjs/config';
-import { HttpException } from '@nestjs/common';
+import { HttpException, Logger } from '@nestjs/common';
 import { ExtendedRequest } from '@fit-friends/core';
 
 export function auth (httpService: HttpService, configService: ConfigService) {
@@ -36,20 +36,18 @@ export function auth (httpService: HttpService, configService: ConfigService) {
             }
           }
         ).pipe(catchError((e) => {
+          Logger.error(e.response.data);
+
           if (e && axios.isAxiosError(e) && e.response) {
             throw new HttpException(e.response.data, e.response.status);
           }
-
-          console.log(`Ошибка ${e}`);
 
           throw new HttpException('Неизвестная ошибка', 500);
         }))
       )
 
       req.user = user;
-    } catch(e) {
-      throw new Error(e.message);
-    }
+    } catch {}
 
     next();
   }
