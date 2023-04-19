@@ -13,7 +13,7 @@ export class UsersController {
   @ApiResponse({
     status: HttpStatus.OK, description: 'Вы успешно получили данные'
   })
-  @Get('auth/verify')
+  @Get(`${UrlPaths.Auth}/${UrlPaths.Verify}`)
   @HttpCode(HttpStatus.OK)
   public async verify(@Headers() headers) {
     return this.usersService.verify(headers);
@@ -67,7 +67,7 @@ export class UsersController {
   @ApiResponse({
     status: HttpStatus.OK, description: 'Токены доступа обновлены'
   })
-  @Get(UrlPaths.Refresh)
+  @Get(`${UrlPaths.Auth}/${UrlPaths.Refresh}`)
   @HttpCode(HttpStatus.OK)
   public async refresh(@Headers() headers) {
     return this.usersService.refresh(headers);

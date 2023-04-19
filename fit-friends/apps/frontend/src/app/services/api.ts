@@ -39,7 +39,7 @@ export const createAPI = () => {
 
       try {
         dropToken(TOKEN);
-        const {data} = await api.get<TokenData>(`${UrlPaths.Users}/${UrlPaths.Refresh}`);
+        const {data} = await api.get<TokenData>(`${UrlPaths.Users}/${UrlPaths.Auth}/${UrlPaths.Refresh}`);
         saveTokens(data.accessToken, data.refreshToken);
 
         originalRequest._retry = true;

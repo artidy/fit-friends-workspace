@@ -1,10 +1,10 @@
 import { Response, NextFunction } from 'express';
+import axios from 'axios';
 import { HttpService } from '@nestjs/axios';
 import { catchError, firstValueFrom } from 'rxjs';
 import { ConfigService } from '@nestjs/config';
 import { HttpException } from '@nestjs/common';
 import { ExtendedRequest } from '@fit-friends/core';
-import axios from 'axios';
 
 export function auth (httpService: HttpService, configService: ConfigService) {
   return async function (req: ExtendedRequest, res: Response, next: NextFunction)
@@ -21,6 +21,10 @@ export function auth (httpService: HttpService, configService: ConfigService) {
 
     const authUrl = configService.get<string>('auth.url') ?? '';
 
+    if (!authUrl) {
+      return next();
+    }
+
     try {
       const {data: user} = await firstValueFrom(
         httpService.get(
@@ -36,12 +40,16 @@ export function auth (httpService: HttpService, configService: ConfigService) {
             throw new HttpException(e.response.data, e.response.status);
           }
 
+          console.log(`Ошибка ${e}`);
+
           throw new HttpException('Неизвестная ошибка', 500);
         }))
       )
 
       req.user = user;
-    } catch {}
+    } catch(e) {
+      throw new Error(e.message);
+    }
 
     next();
   }

@@ -17,7 +17,7 @@ export const verify = createAsyncThunk<void, undefined, AsyncThunkConfig>(
       const token = getToken(TOKEN);
 
       if (token) {
-        const { data } = await api.get<UserApi>(`${UrlPaths.Users}/auth/verify`);
+        const { data } = await api.get<UserApi>(`${UrlPaths.Users}/${UrlPaths.Auth}/${UrlPaths.Verify}`);
         dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
         dispatch(setUser(userAdapt(data)));
 
