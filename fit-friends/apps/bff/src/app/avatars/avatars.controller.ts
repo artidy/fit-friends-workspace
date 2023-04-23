@@ -48,6 +48,8 @@ export class AvatarsController {
       'Content-Type': `multipart/form-data; boundary=${formData.getBoundary()}`,
     }
 
+    console.log(avatarPath.url);
+
     return avatarPath.url !== '' ? await this.avatarsService.update(userId, formData, headers) :
       await this.avatarsService.create(userId, formData, headers);
   }

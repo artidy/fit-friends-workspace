@@ -25,7 +25,7 @@ export class AvatarsService {
       }))
     )
 
-    return { url: `${this.serviceAddress.replace('api', '')}${data.url}`};
+    return { url: data.url !== '' ? `${this.serviceAddress.replace('api', '')}${data.url}` : ''};
   }
 
   public async create(userId: string, avatar, headers) {

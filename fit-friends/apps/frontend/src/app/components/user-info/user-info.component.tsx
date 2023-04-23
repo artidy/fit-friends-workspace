@@ -10,7 +10,6 @@ import { getQuestionnaire } from '../../store/questionnaire-data/selectors';
 import { getUpdateFields, toggleArrayValue } from '../../services/helpers';
 import { deleteAvatar, getAvatar, updateUser, uploadAvatar } from '../../store/user-data/api-actions';
 import { updateQuestionnaireCoach } from '../../store/questionnaire-data/api-actions';
-import { AvatarUpload } from '../../types/avatar';
 
 function UserInfoComponent(): JSX.Element {
   const dispatch = useAppDispatch();
