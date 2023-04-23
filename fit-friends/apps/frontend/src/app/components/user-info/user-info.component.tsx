@@ -1,20 +1,22 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from 'react';
 
 import InputLoadAvatarComponent from '../input-load-avatar/input-load-avatar.component';
 import CustomSelectComponent from '../custom-select/custom-select.component';
 import { LOCATIONS, TRAINING_LEVELS, TRAINING_TYPES, UserGender, UserRole } from '../../const';
 import BtnCheckboxComponent from '../btn-checkbox/btn-checkbox.component';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getUser } from '../../store/user-data/selectors';
+import { getAvatarPath, getUser } from '../../store/user-data/selectors';
 import { getQuestionnaire } from '../../store/questionnaire-data/selectors';
 import { getUpdateFields, toggleArrayValue } from '../../services/helpers';
-import { updateUser } from '../../store/user-data/api-actions';
+import { deleteAvatar, getAvatar, updateUser, uploadAvatar } from '../../store/user-data/api-actions';
 import { updateQuestionnaireCoach } from '../../store/questionnaire-data/api-actions';
+import { AvatarUpload } from '../../types/avatar';
 
 function UserInfoComponent(): JSX.Element {
   const dispatch = useAppDispatch();
   const user = useAppSelector(getUser);
   const profile = useAppSelector(getQuestionnaire);
+  const avatarData = useAppSelector(getAvatarPath);
   const [readOnly, setReadOnly] = useState<boolean>(true);
   const [name, setName] = useState<string>(user?.name ?? '');
   const [merits, setMerits] = useState<string>(profile.merits ?? '');
@@ -23,10 +25,16 @@ function UserInfoComponent(): JSX.Element {
   const [level, setLevel] = useState<string>(profile.level);
   const [location, setLocation] = useState<string>(user?.location ?? '');
   const [gender, setGender] = useState<string>(user?.gender ?? '');
+  const [avatar, setAvatar] = useState<File|null>(null);
+  const [avatarPath, setAvatarPath] = useState<string>(avatarData.url);
 
   if (!user || !profile) {
     return <div>Данные не найдены</div>
   }
+
+  useEffect(() => {
+    dispatch(getAvatar(user.id));
+  }, [])
 
   const onSubmitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -78,6 +86,31 @@ function UserInfoComponent(): JSX.Element {
     toggleActiveStatus(evt.target.checked);
   }
 
+  const onChangeAvatar = (evt: ChangeEvent<HTMLInputElement>) => {
+    if (!evt.target.files) {
+      return;
+    }
+
+    const file = evt.target.files[0];
+
+    setAvatar(file);
+    setAvatarPath(URL.createObjectURL(file));
+  }
+
+  const onUploadAvatar = (evt: MouseEvent<HTMLButtonElement>) => {
+    if (!avatar) {
+      return;
+    }
+
+    dispatch(uploadAvatar({userId: user.id, avatar}));
+  }
+
+  const onDeleteAvatar = (evt: MouseEvent<HTMLButtonElement>) => {
+    dispatch(deleteAvatar(user.id));
+    setAvatar(null);
+    setAvatarPath('');
+  }
+
   const trainingTypesBlock = TRAINING_TYPES.map((type) => {
     return <BtnCheckboxComponent
       key={type}
@@ -98,14 +131,14 @@ function UserInfoComponent(): JSX.Element {
   return (
     <section className="user-info-edit">
       <div className="user-info-edit__header">
-        <InputLoadAvatarComponent readOnly={readOnly} avatarUrl={user.avatar} />
+        <InputLoadAvatarComponent readOnly={readOnly} avatarUrl={avatarPath} onChange={onChangeAvatar} />
         <div className="user-info-edit__controls">
-          <button className="user-info-edit__control-btn" aria-label="обновить">
+          <button className="user-info-edit__control-btn" aria-label="обновить" onClick={onUploadAvatar}>
             <svg width="16" height="16" aria-hidden="true">
               <use xlinkHref="#icon-change"></use>
             </svg>
           </button>
-          <button className="user-info-edit__control-btn" aria-label="удалить">
+          <button className="user-info-edit__control-btn" aria-label="удалить" onClick={onDeleteAvatar}>
             <svg width="14" height="16" aria-hidden="true">
               <use xlinkHref="#icon-trash"></use>
             </svg>

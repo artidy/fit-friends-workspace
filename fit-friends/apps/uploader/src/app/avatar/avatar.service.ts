@@ -62,6 +62,6 @@ export class AvatarService {
   public async getAvatarUrl(userId: string) {
     const avatar = await this.avatarRepository.findByUserId(userId);
 
-    return getShortPathFile(AvatarSettings.Directory, avatar.fileName);
+    return avatar ? getShortPathFile(AvatarSettings.Directory, avatar.fileName) : '';
   }
 }

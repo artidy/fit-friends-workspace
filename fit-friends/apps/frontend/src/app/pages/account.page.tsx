@@ -1,8 +1,8 @@
-import HeaderComponent from '../components/header/header.component';
 import { AppRoute, UserRole } from '../const';
-import UserInfoComponent from '../components/user-info/user-info.component';
 import { useAppSelector } from '../hooks';
 import { getUser } from '../store/user-data/selectors';
+import HeaderComponent from '../components/header/header.component';
+import UserInfoComponent from '../components/user-info/user-info.component';
 import AccountCoachComponent from '../components/account-coach/account-coach.component';
 import AccountUserComponent from '../components/account-user/account-user.component';
 

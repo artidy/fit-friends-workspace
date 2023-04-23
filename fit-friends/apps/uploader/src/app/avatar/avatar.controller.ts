@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { AVATAR_TYPES, AvatarSettings, fillObject, UrlPaths } from '@fit-friends/core';
+import { AVATAR_TYPES, AvatarSettings, fillObject, MongoidValidationPipe, UrlPaths } from '@fit-friends/core';
 
 import { AvatarService } from './avatar.service';
 import { AvatarRdo } from './rdo/avatar.rdo';
@@ -44,7 +44,7 @@ export class AvatarController {
     AvatarSettings.FieldName,
     getMulterConfig(AvatarSettings.Directory, AvatarSettings.MaxSize)))
   public async create(
-    @Param('id') id: string,
+    @Param('id', MongoidValidationPipe) id: string,
     @UploadedFile(getFilePipe(AVATAR_TYPES)) avatar: Express.Multer.File
   ) {
     const fileName = avatar.filename;

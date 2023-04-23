@@ -1,19 +1,21 @@
-import { memo } from 'react';
+import { ChangeEventHandler, memo } from 'react';
 
 type InputLoadAvatarComponentProps = {
   readOnly: boolean;
   avatarUrl: string;
+  onChange: ChangeEventHandler;
 }
 
-function InputLoadAvatarComponent({readOnly, avatarUrl}: InputLoadAvatarComponentProps): JSX.Element {
+function InputLoadAvatarComponent({readOnly, avatarUrl, onChange}: InputLoadAvatarComponentProps): JSX.Element {
   return (
     <div className="input-load-avatar">
       <label>
         <input
           className="visually-hidden"
           type="file"
-          name="user-photo-1"
+          name="avatar"
           accept="image/png, image/jpeg"
+          onChange={onChange}
           readOnly={readOnly}
         />
         <span className="input-load-avatar__avatar">

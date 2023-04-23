@@ -1,9 +1,8 @@
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
-import { dropToken, getActiveToken, getToken, saveTokens } from './token';
-import { DEFAULT_REQUEST_TIMEOUT, REFRESH_TOKEN, TOKEN, UrlPaths } from '../const';
+import { dropToken, getActiveToken, saveTokens } from './token';
+import { DEFAULT_REQUEST_TIMEOUT, TOKEN, UrlPaths } from '../const';
 import { TokenData } from '../types/token';
-import { toast } from 'react-toastify';
 
 const BACKEND_URL = process.env.NX_BACKEND_URL;
 const REQUEST_TIMEOUT = Number(process.env.NX_REQUEST_TIMEOUT) ?? DEFAULT_REQUEST_TIMEOUT;

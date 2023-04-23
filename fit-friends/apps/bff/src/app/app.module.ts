@@ -9,6 +9,7 @@ import { QuestionnaireCoachModule } from './questionnaire-coach/questionnaire-co
 import { QuestionnaireUserModule } from './questionnaire-user/questionnaire-user.module';
 import { TrainingsModule } from './trainings/trainings.module';
 import { GymModule } from './gyms/gym.module';
+import { AvatarsModule } from './avatars/avatars.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { GymModule } from './gyms/gym.module';
     QuestionnaireUserModule,
     TrainingsModule,
     GymModule,
+    AvatarsModule,
   ]
 })
 export class AppModule {}

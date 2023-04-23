@@ -7,6 +7,7 @@ const initialState: UserState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   user: null,
   users: [],
+  avatar: { url: '' },
   currentUser: null,
   isLoading: false,
 };
@@ -29,7 +30,10 @@ export const userData = createSlice({
     },
     setUsersLoading: (state, action) => {
       state.isLoading = action.payload;
-    }
+    },
+    setAvatar: (state, action) => {
+      state.avatar = action.payload;
+    },
   },
 });
 
@@ -38,5 +42,6 @@ export const {
   setUser,
   setUsers,
   setCurrentUser,
-  setUsersLoading
+  setUsersLoading,
+  setAvatar,
 } = userData.actions;

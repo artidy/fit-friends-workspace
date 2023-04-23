@@ -48,6 +48,7 @@ enum UrlPaths {
   QuestionnaireUser = 'user-profile',
   Trainings = 'trainings',
   Gyms = 'gyms',
+  Avatars = 'avatars',
 }
 
 enum Message {

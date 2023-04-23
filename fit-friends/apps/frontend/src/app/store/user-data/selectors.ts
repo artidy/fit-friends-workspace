@@ -45,3 +45,8 @@ export const getIsCoach = createSelector(
   (state: State) => state[NameSpace.User],
   (state: UserState) => state.user?.role === UserRole.Coach
 );
+
+export const getAvatarPath = createSelector(
+  (state: State) => state[NameSpace.User],
+  (state: UserState) => state.avatar
+);
