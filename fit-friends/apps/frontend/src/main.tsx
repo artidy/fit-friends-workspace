@@ -16,7 +16,6 @@ const root = ReactDOM.createRoot(
 );
 
 store.dispatch(verify());
-store.dispatch(fetchTrainings());
 
 root.render(
   <StrictMode>

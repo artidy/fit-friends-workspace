@@ -9,7 +9,7 @@ import { getAvatarPath, getUser } from '../../store/user-data/selectors';
 import { getQuestionnaire } from '../../store/questionnaire-data/selectors';
 import { getUpdateFields, toggleArrayValue } from '../../services/helpers';
 import { deleteAvatar, getAvatar, updateUser, uploadAvatar } from '../../store/user-data/api-actions';
-import { updateQuestionnaireCoach } from '../../store/questionnaire-data/api-actions';
+import { updateQuestionnaireCoach, updateQuestionnaireUser } from '../../store/questionnaire-data/api-actions';
 
 function UserInfoComponent(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -63,7 +63,14 @@ function UserInfoComponent(): JSX.Element {
     })
 
     if (updateData) {
-      dispatch(updateQuestionnaireCoach({...updateData, userId: user.id}));
+      switch (user.role) {
+        case UserRole.Coach:
+          dispatch(updateQuestionnaireCoach({...updateData, userId: user.id}));
+          break;
+        case UserRole.User:
+          dispatch(updateQuestionnaireUser({...updateData, userId: user.id}));
+          break;
+      }
     }
 
     setReadOnly(true);

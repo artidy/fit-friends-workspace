@@ -17,7 +17,7 @@ import {
   EditDataForbiddenException,
   fillObject,
   HttpExceptionFilter,
-  MongoidValidationPipe,
+  MongoidValidationPipe, UrlPaths,
   User
 } from '@fit-friends/core';
 import { UserRequest, UserRole } from '@fit-friends/shared-types';
@@ -29,8 +29,8 @@ import { CreateUserProfileDto } from './dto/create-user-profile.dto';
 import { UpdateUserProfileDto } from './dto/update-user-profile.dto';
 
 @UseFilters(HttpExceptionFilter)
-@ApiTags('user-profile')
-@Controller('user-profile')
+@ApiTags(UrlPaths.QuestionnaireUser)
+@Controller(UrlPaths.QuestionnaireUser)
 export class UserProfileController {
   constructor(private readonly userProfileService: UserProfileService) {}
 

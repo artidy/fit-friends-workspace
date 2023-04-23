@@ -6,6 +6,7 @@ import { NameSpace } from '../../const';
 const initialState: TrainingsState = {
   currentTraining: null,
   trainings: [],
+  special: [],
   isLoading: false,
 };
 
@@ -15,6 +16,9 @@ export const trainingsData = createSlice({
   reducers: {
     setTrainings: (state, action) => {
       state.trainings = action.payload;
+    },
+    setSpecial: (state, action) => {
+      state.special = action.payload;
     },
     setCurrentTraining: (state, action) => {
       state.currentTraining = action.payload;
@@ -32,5 +36,6 @@ export const {
   setTrainings,
   setCurrentTraining,
   setDefaultState,
-  setTrainingsLoading
+  setSpecial,
+  setTrainingsLoading,
 } = trainingsData.actions;

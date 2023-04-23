@@ -3,19 +3,32 @@ import { toast } from 'react-toastify';
 import { isAxiosError } from 'axios';
 
 import { AsyncThunkConfig } from '../../types/thunk-config';
-import { Message, NameSpace, UrlPaths } from '../../const';
-import { setCurrentTraining, setTrainings, setTrainingsLoading } from './trainings-data';
+import { DEFAULT_TRAINING_QUERY, Message, NameSpace, UrlPaths } from '../../const';
+import { setCurrentTraining, setSpecial, setTrainings, setTrainingsLoading } from './trainings-data';
 import { CreateTraining, TrainingApi, UpdateTraining } from '../../types/training';
 import { trainingAdapt, trainingsAdapt } from '../../services/adapters/trainings.adapter';
+import { TrainingQuery } from '../../types/query';
 
-export const fetchTrainings = createAsyncThunk<void, undefined, AsyncThunkConfig>(
+export const fetchTrainings = createAsyncThunk<void, TrainingQuery, AsyncThunkConfig>(
   `${NameSpace.Trainings}/${UrlPaths.Trainings}`,
-  async (_arg, { dispatch, extra: api }) => {
+  async (query, { dispatch, extra: api }) => {
     dispatch(setTrainingsLoading(true));
 
-    const { data } = await api.get<TrainingApi[]>(`${UrlPaths.Trainings}`);
+    const { data } = await api.get<TrainingApi[]>(`${UrlPaths.Trainings}`, { params: query });
 
     dispatch(setTrainings(trainingsAdapt(data)));
+    dispatch(setTrainingsLoading(false));
+  }
+);
+
+export const fetchSpecial = createAsyncThunk<void, TrainingQuery, AsyncThunkConfig>(
+  `${NameSpace.Trainings}/${UrlPaths.Trainings}`,
+  async (query, { dispatch, extra: api }) => {
+    dispatch(setTrainingsLoading(true));
+
+    const { data } = await api.get<TrainingApi[]>(`${UrlPaths.Trainings}`, { params: query });
+
+    dispatch(setSpecial(trainingsAdapt(data)));
     dispatch(setTrainingsLoading(false));
   }
 );
@@ -38,7 +51,7 @@ export const createTraining = createAsyncThunk<void, CreateTraining, AsyncThunkC
     dispatch(setTrainingsLoading(true));
     try {
       await api.post<TrainingApi>(`${UrlPaths.Trainings}`, training);
-      dispatch(fetchTrainings());
+      dispatch(fetchTrainings(DEFAULT_TRAINING_QUERY));
     } catch(e) {
       let message = Message.UnknownMessage;
 
@@ -57,7 +70,7 @@ export const updateTraining = createAsyncThunk<void, UpdateTraining, AsyncThunkC
     dispatch(setTrainingsLoading(true));
     try {
       await api.patch<TrainingApi>(`${UrlPaths.Trainings}/${training.id}`, training);
-      dispatch(fetchTrainings());
+      dispatch(fetchTrainings(DEFAULT_TRAINING_QUERY));
     } catch(e) {
       let message = Message.UnknownMessage;
 
@@ -76,7 +89,7 @@ export const deleteTraining = createAsyncThunk<void, string, AsyncThunkConfig>(
     dispatch(setTrainingsLoading(true));
     try {
       await api.delete<void>(`${UrlPaths.Trainings}/${trainingId}`);
-      dispatch(fetchTrainings());
+      dispatch(fetchTrainings(DEFAULT_TRAINING_QUERY));
     } catch(e) {
       let message = Message.UnknownMessage;
 

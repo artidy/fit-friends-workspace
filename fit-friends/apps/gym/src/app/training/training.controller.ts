@@ -1,5 +1,5 @@
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query } from '@nestjs/common';
 import { Auth, fillObject, UrlPaths, User } from '@fit-friends/core';
 import { UserRequest, UserRole } from '@fit-friends/shared-types';
 
@@ -7,6 +7,7 @@ import { TrainingService } from './training.service';
 import { TrainingRdo } from './rdo/training.rdo';
 import { CreateTrainingDto } from './dto/create-training.dto';
 import { UpdateTrainingDto } from './dto/update-training.dto';
+import { TrainingQuery } from './query/training.query';
 
 @ApiTags(UrlPaths.Trainings)
 @Controller(UrlPaths.Trainings)
@@ -18,8 +19,8 @@ export class TrainingController {
   })
   @Auth()
   @Get('/')
-  public async index() {
-    const trainings = await this.trainingService.findAll();
+  public async index(@Query() query: TrainingQuery) {
+    const trainings = await this.trainingService.findAll(query);
 
     return fillObject(TrainingRdo, trainings);
   }

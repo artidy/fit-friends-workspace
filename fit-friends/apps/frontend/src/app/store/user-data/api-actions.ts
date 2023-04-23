@@ -10,7 +10,6 @@ import { CreateUser, LoginUser, UpdateUser, User, UserApi } from '../../types/us
 import { TokenData } from '../../types/token';
 import { userAdapt, usersAdapt } from '../../services/adapters/users.adapter';
 import { AvatarApi, AvatarUpload } from '../../types/avatar';
-import { config } from 'rxjs';
 import { avatarAdapt } from '../../services/adapters/avatar.adapter';
 
 export const verify = createAsyncThunk<void, undefined, AsyncThunkConfig>(

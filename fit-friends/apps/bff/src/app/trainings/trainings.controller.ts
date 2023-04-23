@@ -1,4 +1,16 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Headers, Param, Patch, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Headers,
+  Param,
+  Patch,
+  Delete,
+  Query
+} from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UrlPaths } from '@fit-friends/core';
 
@@ -14,8 +26,8 @@ export class TrainingsController {
   })
   @Get()
   @HttpCode(HttpStatus.OK)
-  public async index(@Headers() headers) {
-    return this.service.getAll(headers);
+  public async index(@Headers() headers, @Query() query) {
+    return this.service.getAll(headers, query);
   }
 
   @ApiResponse({

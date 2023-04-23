@@ -1,3 +1,5 @@
+import { TrainingQuery } from './types/query';
+
 enum AppRoute {
   Main = '/',
   SignUp = '/signup',
@@ -118,6 +120,11 @@ const FEATURES = [
   'массаж',
 ]
 
+const DEFAULT_TRAINING_QUERY: TrainingQuery = {
+  limit: 20,
+  page: 1
+}
+
 const DEFAULT_REQUEST_TIMEOUT = 5000;
 const TOKEN = 'fit-friends-token';
 const REFRESH_TOKEN = 'fit-friends-refresh-token';
@@ -139,6 +146,7 @@ export {
   USER_TYPES,
   DURATIONS,
   FEATURES,
+  DEFAULT_TRAINING_QUERY,
   DEFAULT_REQUEST_TIMEOUT,
   TOKEN,
   REFRESH_TOKEN,

@@ -1,6 +1,39 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 
-function SpecialComponent(): JSX.Element {
+import { fetchSpecial } from '../../store/trainings-data/api-actions';
+import { DEFAULT_TRAINING_QUERY } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getSpecial, isTrainingsLoading } from '../../store/trainings-data/selectors';
+import LoaderComponent from '../loader/loader.component';
+import SpecialItemComponent from './special-item.component';
+
+type SpecialComponentProps = {
+  level: string;
+  types: string[];
+}
+
+function SpecialComponent({level, types}: SpecialComponentProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const special = useAppSelector(getSpecial);
+  const isLoading = useAppSelector(isTrainingsLoading);
+
+  useEffect(() => {
+    dispatch(fetchSpecial({
+      ...DEFAULT_TRAINING_QUERY,
+      level: level,
+      limit: 9,
+      types: types.toString()
+    }))
+  }, [level, types]);
+
+  if (isLoading) {
+    return <LoaderComponent />
+  }
+
+  const specialBlock = special.map((item) => {
+    return <SpecialItemComponent id={item.id} title={item.title} preview="" />
+  })
+
   return (
     <div className="special-for-you__wrapper">
       <div className="special-for-you__title-wrapper">
@@ -19,80 +52,7 @@ function SpecialComponent(): JSX.Element {
         </div>
       </div>
       <ul className="special-for-you__list">
-        <li className="special-for-you__item">
-          <div className="thumbnail-preview">
-            <div className="thumbnail-preview__image">
-              <picture>
-                <source
-                  type="image/webp"
-                  srcSet="img/content/thumbnails/preview-03.webp, img/content/thumbnails/preview-03@2x.webp 2x" />
-                <img
-                  src="img/content/thumbnails/preview-03.jpg"
-                  srcSet="img/content/thumbnails/preview-03@2x.jpg 2x"
-                  width="452"
-                  height="191"
-                  alt=""
-                />
-              </picture>
-            </div>
-            <div className="thumbnail-preview__inner">
-              <h3 className="thumbnail-preview__title">crossfit</h3>
-              <div className="thumbnail-preview__button-wrapper">
-                <a className="btn btn--small thumbnail-preview__button" href="#">Подробнее</a>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li className="special-for-you__item">
-          <div className="thumbnail-preview">
-            <div className="thumbnail-preview__image">
-              <picture>
-                <source
-                  type="image/webp"
-                  srcSet="img/content/thumbnails/preview-02.webp, img/content/thumbnails/preview-02@2x.webp 2x"
-                />
-                <img
-                  src="img/content/thumbnails/preview-02.jpg"
-                  srcSet="img/content/thumbnails/preview-02@2x.jpg 2x"
-                  width="452"
-                  height="191"
-                  alt=""
-                />
-              </picture>
-            </div>
-            <div className="thumbnail-preview__inner">
-              <h3 className="thumbnail-preview__title">power</h3>
-              <div className="thumbnail-preview__button-wrapper">
-                <a className="btn btn--small thumbnail-preview__button" href="#">Подробнее</a>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li className="special-for-you__item">
-          <div className="thumbnail-preview">
-            <div className="thumbnail-preview__image">
-              <picture>
-                <source
-                  type="image/webp"
-                  srcSet="img/content/thumbnails/preview-01.webp, img/content/thumbnails/preview-01@2x.webp 2x"
-                />
-                <img
-                  src="img/content/thumbnails/preview-01.jpg"
-                  srcSet="img/content/thumbnails/preview-01@2x.jpg 2x"
-                  width="452"
-                  height="191"
-                  alt=""
-                />
-              </picture>
-            </div>
-            <div className="thumbnail-preview__inner">
-              <h3 className="thumbnail-preview__title">boxing</h3>
-              <div className="thumbnail-preview__button-wrapper">
-                <a className="btn btn--small thumbnail-preview__button" href="#">Подробнее</a>
-              </div>
-            </div>
-          </div>
-        </li>
+        {specialBlock}
       </ul>
     </div>
   )

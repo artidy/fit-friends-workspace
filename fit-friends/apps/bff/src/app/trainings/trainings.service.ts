@@ -15,11 +15,11 @@ export class TrainingsService {
     this.serviceAddress = this.configService.get<string>('bff.gym');
   }
 
-  public async getAll(headers) {
+  public async getAll(headers, query) {
     const { data } = await firstValueFrom(
       this.httpService.get(
         `${this.serviceAddress}/${UrlPaths.Trainings}`,
-        {headers}
+        {headers, params: query}
       ).pipe(catchError((e) => {
         throw new HttpException(e.response.data, e.response.status);
       }))

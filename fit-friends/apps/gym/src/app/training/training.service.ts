@@ -9,6 +9,7 @@ import { TrainingEntity } from './training.entity';
 import { CreateTrainingDto } from './dto/create-training.dto';
 import { UpdateTrainingDto } from './dto/update-training.dto';
 import { RABBITMQ_SERVICE_NAME } from '../app.constant';
+import { TrainingQuery } from './query/training.query';
 
 @Injectable()
 export class TrainingService {
@@ -17,8 +18,8 @@ export class TrainingService {
     @Inject(RABBITMQ_SERVICE_NAME) private readonly rabbitClient: ClientProxy
   ) {}
 
-  public async findAll(): Promise<Training[]> {
-    return this.trainingRepository.findAll();
+  public async findAll(query: TrainingQuery): Promise<Training[]> {
+    return this.trainingRepository.findAll(query);
   }
 
   public async findById(id: number): Promise<Training | null> {

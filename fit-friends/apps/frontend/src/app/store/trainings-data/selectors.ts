@@ -8,6 +8,11 @@ export const getTrainings = createSelector(
   (state: TrainingsState) => state.trainings
 );
 
+export const getSpecial = createSelector(
+  (state: State) => state[NameSpace.Trainings],
+  (state: TrainingsState) => state.special
+);
+
 export const getCurrentTraining = createSelector(
   (state: State) => state[NameSpace.Trainings],
   (state: TrainingsState) => state.currentTraining

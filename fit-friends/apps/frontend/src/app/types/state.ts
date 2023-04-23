@@ -22,6 +22,7 @@ export type QuestionnaireState = {
 
 export type TrainingsState = {
   trainings: Training[];
+  special: Training[];
   currentTraining: Training | null;
   isLoading: boolean;
 };
