@@ -11,7 +11,6 @@ export class TrainingRepository implements CRUDRepository<TrainingEntity, number
   constructor(private readonly prisma: PrismaService) {}
 
   public async findAll({ limit, level, types, gender, duration, minPrice, maxPrice, calories, page }: TrainingQuery): Promise<Training[]> {
-    console.log(limit, level, types, gender, duration, minPrice, maxPrice, calories, page);
     return this.prisma.training.findMany({
       where: {
         level,
